@@ -1,0 +1,214 @@
+import React from 'react';
+import '../App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+const Home = () => {
+    return (
+        <main className="page-wrapper">
+            <section className="pt-5">
+                <div className="container position-relative zindex-2 pt-5 mt-3 mt-sm-4 mt-md-5">
+                    <div className="row pt-xl-3 pt-xxl-4">
+                        <div className="col-lg-7 col-xxl-6">
+                            <h1 className="display-3 text-center text-lg-start formstyle" style={{ fontSize: '40px' }}><span className='text-primary' style={{ fontSize: '60px' }}>SMART PARK & FLY</span><br />Secure Your Spot with Ease</h1>
+                        </div>
+                        <div className="col-lg-5 offset-xxl-1 pt-sm-3">
+                            <p className="fs-lg text-center text-lg-start pb-3 pb-sm-0 pb-md-2 mb-4 mb-sm-5 textp">
+                                Magna in purus in facilisis pretium eleifend in nullamer magna morbi eleifend vel convallis quis utrices neque tellus purus in facilisis pretium eleifend vel convallio.
+                            </p>
+                            {/* Contact form */}
+                            <div className="card border-0 bg-primary py-4 px-xxl-4">
+                                <form className="card-body dark-mode">
+                                    <h2 className="h3 card-title text-center pb-2 pb-xxl-3 formstyle">Reserve your spot</h2>
+                                    <div className="mb-3">
+                                        <label className="form-label fs-base textr" htmlFor="location">Location</label>
+                                        <select className="form-select form-select-lg textr" required id="location">
+                                            <option style={{ color: '#121519' }} value="london airport" selected>London airport</option>
+                                        </select>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label className="form-label fs-base textr" htmlFor="terminal">Terminal</label>
+                                        <select className="form-select form-select-lg textr" required id="terminal">
+                                            <option style={{ color: '#121519' }} value="any">Any terminal</option>
+                                            <option style={{ color: '#121519' }} value="terminal 1">Terminal 1</option>
+                                            <option style={{ color: '#121519' }} value="terminal 2">Terminal 2</option>
+                                            <option style={{ color: '#121519' }} value="terminal 3">Terminal 3</option>
+                                            <option style={{ color: '#121519' }} value="terminal 4">Terminal 4</option>
+                                        </select>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label className="form-label textr">Parking from</label>
+                                        <div className="position-relative textr">
+                                            <input
+                                                className="form-control form-control-lg date-picker pe-5 textr"
+                                                type="text"
+                                                placeholder="Choose date/time"
+                                                data-datepicker-options='{"enableTime": true, "altInput": true, "altFormat": "F j, Y H:i", "dateFormat": "Y-m-d H:i"}'
+                                            />
+                                            <i className="ai-calendar position-absolute top-50 end-0 translate-middle-y fs-lg text-white opacity-80 me-3"></i>
+                                        </div>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label className="form-label textr">Parking to</label>
+                                        <div className="position-relative textr">
+                                            <input
+                                                className="form-control form-control-lg date-picker pe-5 textr"
+                                                type="text"
+                                                placeholder="Choose date/time"
+                                                data-datepicker-options='{"enableTime": true, "altInput": true, "altFormat": "F j, Y H:i", "dateFormat": "Y-m-d H:i"}'
+                                            />
+                                            <i className="ai-calendar position-absolute top-50 end-0 translate-middle-y fs-lg text-white opacity-80 me-3"></i>
+                                        </div>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label className="form-label fs-base textr" htmlFor="promo">Promo code</label>
+                                        <input className="form-control form-control-lg textr" type="text" placeholder="Enter your promo code" required id="promo" />
+                                    </div>
+                                    <div className="d-flex flex-column flex-sm-row flex-lg-column flex-xxl-row align-items-center justify-content-center justify-content-lg-start pt-3 pt-xxl-4">
+                                        <button className="btn btn-light w-100 w-sm-auto w-lg-100 w-xxl-auto mb-2 mb-sm-0 mb-lg-2 mb-xxl-0 me-sm-3 me-lg-0 me-xxl-3 text-primary formstyle" type="submit">Book space now</button>
+                                        <a className="d-flex align-items-center fs-sm text-white text-decoration-none px-3 py-2 formstyle" href="tel:+15262200459">
+                                            <i className="ai-phone fs-xl me-2"></i>+1 526 220 0459
+                                        </a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {/* Parallax image */}
+                <div style={{ position: 'relative', backgroundImage: 'url(assets/img/herolottie.gif)', backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+                    <div className="d-none d-xxl-block" style={{ height: '830px', marginTop: '-700px' }}></div>
+                    <div className="d-none d-xl-block d-xxl-none" style={{ height: '780px', marginTop: '-490px' }}></div>
+                    <div className="d-none d-lg-block d-xl-none" style={{ height: '700px', marginTop: '-560px' }}></div>
+                    <div className="d-none d-sm-block d-lg-none" style={{ height: '520px', marginTop: '-450px' }}></div>
+                    <div className="d-sm-none" style={{ height: '500px', marginTop: '-450px' }}></div>
+                </div>
+            </section>
+            <section className="container pt-0 mt-lg-0 mt-xl-0 mt-xxl-0">
+                <div className="text-center pb-3 pt-0 pt-sm-0 pt-md-0 pt-xl-0 mx-auto mb-sm-2 mb-md-3 mb-lg-4" style={{ maxWidth: '525px' }}>
+                    <h2 className="h1 formstyle">About<br /><span style={{ color: '#0051C9', fontSize: '48px' }}>SMART PARK & FLY</span></h2>
+                    <p className="mb-0 textp">Enim aenean phasellus in hendrerit interdum lorem proin pretium, dictum urna suspendisse quis risus vivamus.</p>
+                </div>
+                <div className="row row-cols-2 row-cols-sm-3 gy-sm-2 g-md-4">
+                    <div className="col card border-0 bg-transparent p-xxl-2">
+                        <div className="card-body text-center p-3 p-sm-4"><i className="lni lni-pointer display-1 text-primary mb-3 mb-sm-4" style={{ fontSize: '70px' }}></i>
+                            <div className="h2 mb-0 textr">Easy to book</div>
+                        </div>
+                    </div>
+                    <div className="col card border-0 bg-transparent p-xxl-2">
+                        <div className="card-body text-center p-3 p-sm-4"><i className="lni lni-shield display-1 text-primary mb-3 mb-sm-4" style={{ fontSize: '70px' }}></i>
+                            <div className="h2 mb-0 textr">Best security</div>
+                        </div>
+                    </div>
+                    <div className="col card border-0 bg-transparent p-xxl-2">
+                        <div className="card-body text-center p-3 p-sm-4"><i className="ai-clock display-1 text-primary mb-3 mb-sm-4" style={{ fontSize: '70px', fontWeight: 'bolder' }}></i>
+                            <div className="h2 mb-0 textr">24/7 access</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section className="container pt-5 mt-lg-3 mt-xl-4 mt-xxl-5">
+                <div className="row text-center text-md-start pb-3 pt-1 pt-sm-3 pt-md-4 pt-xl-5 mt-lg-2 mt-xl-0 mb-3 mb-lg-4">
+                    <div className="col-md-6">
+                        <h2 className="h1 mb-md-0 formstyle">Why choose us?</h2>
+                    </div>
+                    <div className="col-md-6 pt-2">
+                        <p className="mb-0 textp">
+                            Morbi et massa fames ac scelerisque sit commodo dignissim aucibus vel quisque proin lectus laoreet sem
+                            adipiscing sollicitudin erat massa tellus lorem aenean.
+                        </p>
+                    </div>
+                </div>
+                <div className="rounded-5 overflow-hidden">
+                    <div className="ratio ratio-16x9 d-flex align-items-center">
+                        <div style={{ backgroundImage: 'url(assets/img/lottie1.gif)', backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', height: "80%" }}></div>
+                    </div>
+                </div>
+            </section>
+            <section className="container pt-0 mt-0 mt-sm-0 mt-lg-0 mt-xxl-0">
+                <div className="row align-items-center pt-2 pt-sm-3 pt-md-4 pt-xl-5 mt-xxl-2">
+                    {/* CTA */}
+                    <div className="col-md-5 col-xl-4 offset-lg-1 mt-0 mt-md-n5 mb-5 mb-md-0">
+                        <div className="pe-md-4">
+                            <h2 className="h1 text-center text-md-start mb-4 formstyle">
+                                More than 1 million clients have booked our parking spots
+                            </h2>
+                            <ul className="list-unstyled d-flex d-md-block flex-wrap justify-content-center pb-2 pb-lg-0 mb-4 mb-lg-5">
+                                <li className="d-flex pt-1 mt-2 mx-2 mx-md-0">
+                                    <i className="ai-check-alt text-primary fs-4 mt-n1 me-2 textp"></i>24/7 access to the parking areas
+                                </li>
+                                <li className="d-flex pt-1 mt-2 mx-2 mx-md-0">
+                                    <i className="ai-check-alt text-primary fs-4 mt-n1 me-2 textp"></i>Book with few clicks
+                                </li>
+                                <li className="d-flex pt-1 mt-2 mx-2 mx-md-0">
+                                    <i className="ai-check-alt text-primary fs-4 mt-n1 me-2 textp"></i>Payment is refundable
+                                </li>
+                            </ul>
+                            <div className="text-center text-md-start">
+                                <a className="btn btn-lg btn-primary formstyle" href="#">
+                                    Book your spot now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {/* Testimonials */}
+                    <div className="col-md-7 col-lg-6">
+                        <div className="card border-0 bg-secondary py-1 p-lg-4">
+                            <div className="card-body">
+                                <div className="swiper" data-swiper-options='{"spaceBetween": 30, "loop": true, "navigation": {"prevEl": "#prev-testimonial", "nextEl": "#next-testimonial"}}'>
+                                    <div className="swiper-wrapper">
+                                        {/* Item */}
+                                        <div className="swiper-slide">
+                                            <p className="lead text-dark pb-3 mb-3 textp">
+                                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et tempus erat, a vulputate dui. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut luctus molestie massa sit amet dapibus. Cras pulvinar lacinia sollicitudin malesuada vestibulum."
+                                            </p>
+                                            <div className="d-flex align-items-center">
+                                                <img className="rounded-circle" src="assets/img/avatar/30.jpg" width="60" alt="Jenny Wilson" />
+                                                <div className="ps-3">
+                                                    <h3 className="h4 mb-0 textp">Jenny Wilson</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/* Item */}
+                                        <div className="swiper-slide">
+                                            <p className="lead text-dark pb-3 mb-3 textp">
+                                                "Turpis augue pulvinar est adipiscing netus. Arcu at aliquet venenatis elementum. Mi at gravida id nullam imperdiet a proin dolor. Egestas facilisis venenatis quisque viverra donec et. Augue convallis eu a volutpat sed ullamcorper. At dictumst sapien, tristique vitae nec massa."
+                                            </p>
+                                            <div className="d-flex align-items-center">
+                                                <img className="rounded-circle" src="assets/img/avatar/31.jpg" width="60" alt="Esther Howard" />
+                                                <div className="ps-3">
+                                                    <h3 className="h4 mb-0 textp">Esther Howard</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/* Item */}
+                                        <div className="swiper-slide">
+                                            <p className="lead text-dark pb-3 mb-3 textp">
+                                                "Cursus fames sollicitudin nunc eget sceler tortor. Sem amet, velit posuere ipsum id. Mi feugiat at vulputate vel pellentesque proin viverra. Massa, tellus orci, aenean nulla leo maecenas sed. Magna at aliquam dictum velit dolor phasellus donec et mi. Aenean adipiscing amet mauris."
+                                            </p>
+                                            <div className="d-flex align-items-center">
+                                                <img className="rounded-circle" src="assets/img/avatar/32.jpg" width="60" alt="Nick Wenirten" />
+                                                <div className="ps-3">
+                                                    <h3 className="h4 mb-0 textp">Nick Wenirten</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="d-flex justify-content-center justify-content-md-start pt-4">
+                            <button className="btn btn-icon btn-sm btn-outline-primary rounded-circle me-3" type="button" id="prev-testimonial">
+                                <i className="ai-arrow-left"></i>
+                            </button>
+                            <button className="btn btn-icon btn-sm btn-outline-primary rounded-circle" type="button" id="next-testimonial">
+                                <i className="ai-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    );
+};
+
+export default Home;
