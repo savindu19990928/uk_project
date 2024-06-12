@@ -4,8 +4,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavbarC from './components/Navbar';
-import Home from './components/Home';
 import Footer from './components/Footer';
+import Home from './components/Home';
+import Catalog from './components/Catalog';
 
 function App() {
   useEffect(() => {
@@ -60,6 +61,7 @@ function App() {
     createScript("./assets/vendor/lightgallery/plugins/thumbnail/lg-thumbnail.min.js");
     createScript("./assets/vendor/aos/dist/aos.js");
     createScript("./assets/vendor/leaflet/dist/leaflet.js");
+    createScript("./assets/vendor/cleave.js/dist/cleave.min.js");
 
     // Cleanup function
     return () => {
@@ -74,7 +76,7 @@ function App() {
         <NavbarC />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/services" element={<Home />} />
+          <Route path="/services" element={<Catalog />} />
           <Route path="/about" element={<Home />} />
           <Route path="/contact" element={<Home />} />
         </Routes>
