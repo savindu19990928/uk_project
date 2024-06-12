@@ -28,10 +28,37 @@
   color: #61dafb;
 }
 
+.fit-image {
+  max-width: auto;
+  max-height: 50px !important;
+}
+
+.formstyle {
+  font-family: "Anton", Helvetica !important;
+  font-weight: 400 !important;
+}
+
+.textr {
+  font-family: "Rowdies", Helvetica !important;
+  font-weight: 400 !important;
+}
+
+.textp {
+  font-family: "PoetsenOne-Regular", Helvetica !important;
+  font-weight: 400 !important;
+}
+
+.navbar {
+  font-family: "Anton", Helvetica !important;
+  font-weight: 400 !important;
+  
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
