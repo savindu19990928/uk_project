@@ -15,6 +15,8 @@ const Home = () => {
                             <p className="fs-lg text-center text-lg-start pb-3 pb-sm-0 pb-md-2 mb-4 mb-sm-5 textp">
                                 Magna in purus in facilisis pretium eleifend in nullamer magna morbi eleifend vel convallis quis utrices neque tellus purus in facilisis pretium eleifend vel convallio.
                             </p>
+                            <div id='heromobile' style={{ height: '200px', position: 'relative', backgroundImage: 'url(assets/img/herolottie.gif)', backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+                            </div>
                             {/* Contact form */}
                             <div className="card border-0 bg-primary py-4 px-xxl-4">
                                 <form className="card-body dark-mode">
@@ -75,7 +77,7 @@ const Home = () => {
                     </div>
                 </div>
                 {/* Parallax image */}
-                <div style={{ position: 'relative', backgroundImage: 'url(assets/img/herolottie.gif)', backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+                <div id='herodesktop' style={{ position: 'relative', backgroundImage: 'url(assets/img/herolottie.gif)', backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
                     <div className="d-none d-xxl-block" style={{ height: '830px', marginTop: '-700px' }}></div>
                     <div className="d-none d-xl-block d-xxl-none" style={{ height: '780px', marginTop: '-490px' }}></div>
                     <div className="d-none d-lg-block d-xl-none" style={{ height: '700px', marginTop: '-560px' }}></div>
@@ -84,11 +86,11 @@ const Home = () => {
                 </div>
             </section>
             <section className="container pt-0 mt-lg-0 mt-xl-0 mt-xxl-0">
-                <div className="text-center pb-3 pt-0 pt-sm-0 pt-md-0 pt-xl-0 mx-auto mb-sm-2 mb-md-3 mb-lg-4" style={{ maxWidth: '525px' }}>
+                <div className="text-center pb-3 pt-4 pt-sm-0 pt-md-0 pt-xl-0 mx-auto mb-sm-2 mb-md-3 mb-lg-4" style={{ maxWidth: '525px' }}>
                     <h2 className="h1 formstyle">About<br /><span style={{ color: '#0051C9', fontSize: '48px' }}>SMART PARK & FLY</span></h2>
                     <p className="mb-0 textp">Enim aenean phasellus in hendrerit interdum lorem proin pretium, dictum urna suspendisse quis risus vivamus.</p>
                 </div>
-                <div className="row row-cols-2 row-cols-sm-3 gy-sm-2 g-md-4">
+                <div className="row row-cols-1 row-cols-sm-3 gy-sm-2 g-md-4">
                     <div className="col card border-0 bg-transparent p-xxl-2">
                         <div className="card-body text-center p-3 p-sm-4"><i className="lni lni-pointer display-1 text-primary mb-3 mb-sm-4" style={{ fontSize: '70px' }}></i>
                             <div className="h2 mb-0 textr">Easy to book</div>

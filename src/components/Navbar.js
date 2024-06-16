@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Navbar, Nav, Button, Container } from 'react-bootstrap';
+import { Link, useLocation } from 'react-router-dom';
+import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai'; // Importing icons from react-icons
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link, useLocation } from 'react-router-dom';
 
 const NavbarC = () => {
     const location = useLocation();
+    const [navbarOpen, setNavbarOpen] = useState(false);
+
+    const handleToggle = () => {
+        setNavbarOpen(!navbarOpen);
+    };
+
     const isActive = (path) => location.pathname === path;
+
     return (
         <header>
             <Navbar bg="light" expand="lg" fixed="top" className="navbar navbar-expand-lg bg-light fixed-top">
@@ -21,8 +29,14 @@ const NavbarC = () => {
                             PARK & FLY
                         </span>
                     </Navbar.Brand>
-                    <Navbar.Toggle aria-controls="navbarCollapse2" />
-                    <Navbar.Collapse id="navbarCollapse2">
+                    <Navbar.Toggle aria-controls="navbarCollapse2" onClick={handleToggle}>
+                        {navbarOpen ? (
+                            <AiOutlineClose size={24} color="black" />
+                        ) : (
+                            <AiOutlineMenu size={24} color="black" />
+                        )}
+                    </Navbar.Toggle>
+                    <Navbar.Collapse id="navbarCollapse2" in={navbarOpen}>
                         <Nav className="m-auto">
                             <Nav.Link as={Link} to="/" className={`nav-item ${isActive('/') ? 'active' : ''}`}>
                                 Home
