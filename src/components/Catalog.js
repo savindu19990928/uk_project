@@ -80,7 +80,7 @@ function Catalog() {
                 </div>
                 <div className='pt-4'>
                     {/* Your product grid goes here */}
-                    <div className="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-4">
+                    <div className="row row-cols-1 row-cols-sm-3 row-cols-md-4 g-4">
                         <ProductCard imageUrl="assets/img/logo.png" productName="Meet & Greet" price="46.00" productDes="Enim aenean phasellus in hendrerit interdum lorem proin pretium, dictum urna suspendisse quis risus vivamus." />
                         <ProductCard imageUrl="assets/img/logo.png" productName="Park & Ride" price="17.00" productDes="Enim aenean phasellus in hendrerit interdum lorem proin pretium, dictum urna suspendisse quis risus vivamus." />
                         <ProductCard imageUrl="assets/img/logo.png" productName="Meet & Greet" price="13.00" productDes="Enim aenean phasellus in hendrerit interdum lorem proin pretium, dictum urna suspendisse quis risus vivamus." />
