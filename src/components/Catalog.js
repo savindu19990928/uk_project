@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ChatBox from './Catalog/FilterChatBox';
+import FilterButton from './Catalog/FilterButton';
 
 function ProductCard({ imageUrl, productName, productDes, price }) {
     return (
@@ -37,6 +39,35 @@ function Catalog() {
         setCollapsed(!collapsed);
     };
 
+    const [visibleChatBox, setVisibleChatBox] = useState(null);
+    const chatBoxRefs = useRef([]);
+
+    const handleButtonClick = (index) => {
+        setVisibleChatBox(visibleChatBox === index ? null : index);
+    };
+
+    const handleClickOutside = (event) => {
+        if (chatBoxRefs.current[visibleChatBox] && !chatBoxRefs.current[visibleChatBox].contains(event.target)) {
+            setVisibleChatBox(null);
+        }
+    };
+
+    const handleClickOption = (event) => {
+        setVisibleChatBox(null);
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [visibleChatBox]);
+
+    const chatButtons = [
+        { label: 'London city', options: ['London Gatwick', 'London Heathrow', 'London Stansted'] },
+        { label: 'All terminals', options: ['Terminal 1', 'Terminal 2', 'Terminal 3', 'Terminal 4'] },
+    ];
+
     return (
         <div className="container pt-5 mt-5 mt-lg-4 mt-xl-5">
             <div className="ignore-dark-mode rounded-1 overflow-hidden mb-5" style={{ backgroundColor: '#f6f9fc' }}>
@@ -63,27 +94,21 @@ function Catalog() {
                         </div>
                         <div className={`collapse d-md-block ${collapsed ? '' : 'show'}`} id="activeFilters">
                             <div className="pt-2 pt-md-0">
-                                <button
-                                    className="d-inline-block border rounded-pill fs-xs fw-medium text-body text-decoration-none py-1 px-2 me-2 mb-2"
-                                >
-                                    <span className="d-inline-flex align-items-center text-nowrap px-1 textcr">
-                                        London airport
-                                        <i className="ai-circle-x fs-base ms-1"></i>
-                                    </span>
-                                </button>
-                                <button
-                                    className="d-inline-block border rounded-pill fs-xs fw-medium text-body text-decoration-none py-1 px-2 me-2 mb-2"
-                                >
-                                    <span className="d-inline-flex align-items-center text-nowrap px-1 textcr">
-                                        $10 - $50
-                                        <i className="ai-circle-x fs-base ms-1"></i>
-                                    </span>
-                                </button>
+                                {chatButtons.map((button, index) => (
+                                    <div key={index} className="chat-button-container">
+                                        <FilterButton onClick={() => handleButtonClick(index)} btnLabel={button.label} />
+                                        {visibleChatBox === index && (
+                                            <div ref={(el) => (chatBoxRefs.current[index] = el)}>
+                                                <ChatBox options={button.options} onClick={handleClickOption} />
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
                                 <button
                                     className="btn btn-sm btn-secondary rounded-pill fw-medium py-1 px-2"
                                     type="button"
                                 >
-                                    <span className="px-1 textcr">Remove all filters</span>
+                                    <span className="px-1 textcr fs-sm">Remove all filters</span>
                                 </button>
                             </div>
                         </div>
