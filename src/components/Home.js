@@ -9,10 +9,10 @@ const Home = () => {
                 <div className="container position-relative zindex-2 pt-5 mt-3 mt-sm-4 mt-md-5">
                     <div className="row pt-xl-3 pt-xxl-4">
                         <div className="col-lg-7 col-xxl-6">
-                            <h1 className="display-3 text-center text-lg-start formstyle" style={{ fontSize: '40px' }}><span className='text-primary' style={{ fontSize: '60px' }}>SMART PARK & FLY</span><br />Secure Your Spot with Ease</h1>
+                            <h1 className="display-3 text-center text-lg-start texta"><span className='text-primary title1'>SMART PARK & FLY</span><br />Secure Your Spot with Ease</h1>
                         </div>
                         <div className="col-lg-5 offset-xxl-1 pt-sm-3">
-                            <p className="fs-lg text-center text-lg-start pb-3 pb-sm-0 pb-md-2 mb-4 mb-sm-5 textp">
+                            <p className="text-center text-lg-start pb-3 pb-sm-0 pb-md-2 mb-4 mb-sm-5 textp">
                                 Magna in purus in facilisis pretium eleifend in nullamer magna morbi eleifend vel convallis quis utrices neque tellus purus in facilisis pretium eleifend vel convallio.
                             </p>
                             <div id='heromobile' style={{ height: '200px', position: 'relative', backgroundImage: 'url(assets/img/herolottie.gif)', backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
@@ -20,7 +20,7 @@ const Home = () => {
                             {/* Contact form */}
                             <div className="card border-0 bg-primary py-4 px-xxl-4">
                                 <form className="card-body dark-mode">
-                                    <h2 className="h3 card-title text-center pb-2 pb-xxl-3 formstyle">Reserve your spot</h2>
+                                    <h2 className="h3 card-title text-center pb-2 pb-xxl-3 titlea">Reserve your spot</h2>
                                     <div className="mb-3">
                                         <label className="form-label fs-base textr" htmlFor="location">Location</label>
                                         <select className="form-select form-select-lg textr" required id="location">
@@ -66,8 +66,8 @@ const Home = () => {
                                         <input className="form-control form-control-lg textr" type="text" placeholder="Enter your promo code" required id="promo" />
                                     </div>
                                     <div className="d-flex flex-column flex-sm-row flex-lg-column flex-xxl-row align-items-center justify-content-center justify-content-lg-start pt-3 pt-xxl-4">
-                                        <button className="btn btn-light w-100 w-sm-auto w-lg-100 w-xxl-auto mb-2 mb-sm-0 mb-lg-2 mb-xxl-0 me-sm-3 me-lg-0 me-xxl-3 text-primary formstyle" type="submit">Book space now</button>
-                                        <a className="d-flex align-items-center fs-sm text-white text-decoration-none px-3 py-2 formstyle" href="tel:+15262200459">
+                                        <button className="btn btn-light w-100 w-sm-auto w-lg-100 w-xxl-auto mb-2 mb-sm-0 mb-lg-2 mb-xxl-0 me-sm-3 me-lg-0 me-xxl-3 text-primary texta" type="submit">Book space now</button>
+                                        <a className="d-flex align-items-center fs-sm text-white text-decoration-none px-3 py-2 texta" href="tel:+15262200459">
                                             <i className="ai-phone fs-xl me-2"></i>+1 526 220 0459
                                         </a>
                                     </div>
@@ -87,22 +87,22 @@ const Home = () => {
             </section>
             <section className="container pt-0 mt-lg-0 mt-xl-0 mt-xxl-0">
                 <div className="text-center pb-3 pt-4 pt-sm-0 pt-md-0 pt-xl-0 mx-auto mb-sm-2 mb-md-3 mb-lg-4" style={{ maxWidth: '525px' }}>
-                    <h2 className="h1 formstyle">About<br /><span style={{ color: '#0051C9', fontSize: '48px' }}>SMART PARK & FLY</span></h2>
+                    <h2 className="h1 texta">About<br /><span className='text-primary title2'>SMART PARK & FLY</span></h2>
                     <p className="mb-0 textp">Enim aenean phasellus in hendrerit interdum lorem proin pretium, dictum urna suspendisse quis risus vivamus.</p>
                 </div>
                 <div className="row row-cols-1 row-cols-sm-3 gy-sm-2 g-md-4">
                     <div className="col card border-0 bg-transparent p-xxl-2">
-                        <div className="card-body text-center p-3 p-sm-4"><i className="lni lni-pointer display-1 text-primary mb-3 mb-sm-4" style={{ fontSize: '70px' }}></i>
+                        <div className="card-body text-center p-3 p-sm-4"><i className="lni lni-pointer display-1 text-primary mb-3 mb-sm-4 icon1"></i>
                             <div className="h2 mb-0 textr">Easy to book</div>
                         </div>
                     </div>
                     <div className="col card border-0 bg-transparent p-xxl-2">
-                        <div className="card-body text-center p-3 p-sm-4"><i className="lni lni-shield display-1 text-primary mb-3 mb-sm-4" style={{ fontSize: '70px' }}></i>
+                        <div className="card-body text-center p-3 p-sm-4"><i className="lni lni-shield display-1 text-primary mb-3 mb-sm-4 icon1"></i>
                             <div className="h2 mb-0 textr">Best security</div>
                         </div>
                     </div>
                     <div className="col card border-0 bg-transparent p-xxl-2">
-                        <div className="card-body text-center p-3 p-sm-4"><i className="ai-clock display-1 text-primary mb-3 mb-sm-4" style={{ fontSize: '70px', fontWeight: 'bolder' }}></i>
+                        <div className="card-body text-center p-3 p-sm-4"><i className="ai-clock display-1 text-primary mb-3 mb-sm-4 icon1" style={{ fontWeight: 'bolder' }}></i>
                             <div className="h2 mb-0 textr">24/7 access</div>
                         </div>
                     </div>
@@ -111,7 +111,7 @@ const Home = () => {
             <section className="container pt-5 mt-lg-3 mt-xl-4 mt-xxl-5">
                 <div className="row text-center text-md-start pb-3 pt-1 pt-sm-3 pt-md-4 pt-xl-5 mt-lg-2 mt-xl-0 mb-3 mb-lg-4">
                     <div className="col-md-6">
-                        <h2 className="h1 mb-md-0 formstyle">Why choose us?</h2>
+                        <h2 className="h1 mb-md-0 texta">Why choose us?</h2>
                     </div>
                     <div className="col-md-6 pt-2">
                         <p className="mb-0 textp">
@@ -131,22 +131,22 @@ const Home = () => {
                     {/* CTA */}
                     <div className="col-md-5 col-xl-4 offset-lg-1 mt-0 mt-md-n5 mb-5 mb-md-0">
                         <div className="pe-md-4">
-                            <h2 className="h1 text-center text-md-start mb-4 formstyle">
+                            <h2 className="h1 text-center text-md-start mb-4 texta">
                                 More than 1 million clients have booked our parking spots
                             </h2>
                             <ul className="list-unstyled d-flex d-md-block flex-wrap justify-content-center pb-2 pb-lg-0 mb-4 mb-lg-5">
-                                <li className="d-flex pt-1 mt-2 mx-2 mx-md-0">
-                                    <i className="ai-check-alt text-primary fs-4 mt-n1 me-2 textp"></i>24/7 access to the parking areas
+                                <li className="d-flex pt-1 mt-2 mx-2 mx-md-0 textp">
+                                    <i className="ai-check-alt text-primary fs-4 mt-n1 me-2 "></i>24/7 access to the parking areas
                                 </li>
-                                <li className="d-flex pt-1 mt-2 mx-2 mx-md-0">
-                                    <i className="ai-check-alt text-primary fs-4 mt-n1 me-2 textp"></i>Book with few clicks
+                                <li className="d-flex pt-1 mt-2 mx-2 mx-md-0 textp">
+                                    <i className="ai-check-alt text-primary fs-4 mt-n1 me-2"></i>Book with few clicks
                                 </li>
-                                <li className="d-flex pt-1 mt-2 mx-2 mx-md-0">
-                                    <i className="ai-check-alt text-primary fs-4 mt-n1 me-2 textp"></i>Payment is refundable
+                                <li className="d-flex pt-1 mt-2 mx-2 mx-md-0 textp">
+                                    <i className="ai-check-alt text-primary fs-4 mt-n1 me-2"></i>Payment is refundable
                                 </li>
                             </ul>
                             <div className="text-center text-md-start">
-                                <a className="btn btn-lg btn-primary formstyle" href="#">
+                                <a className="btn btn-lg btn-primary texta" href="#">
                                     Book your spot now
                                 </a>
                             </div>

@@ -2,23 +2,12 @@
   display: none !important;
 }
 
-@media (max-width: 767px) {
-  #heromobile {
-      display: block !important;
-  }
-
-  #herodesktop {
-    display: none !important;
-  }
+.title1 {
+  font-size: 60px !important;
 }
 
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.title2 {
+  font-size: 48px !important;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -47,12 +36,17 @@
   max-height: 50px !important;
 }
 
-.formstyle {
+.texta {
   font-family: "Anton", Helvetica !important;
   font-weight: 400 !important;
 }
 
 .textr {
+  font-family: "Rowdies", Helvetica !important;
+  font-weight: 400 !important;
+}
+
+.textcr {
   font-family: "Rowdies", Helvetica !important;
   font-weight: 400 !important;
 }
@@ -80,6 +74,20 @@
   /* Ensure it takes the full viewport height */
 }
 
+.titlea {
+  font-family: "Anton", Helvetica !important;
+  font-weight: 400 !important;
+  font-size: 24px !important;
+}
+
+.icon1 {
+  font-size: 60px !important;
+}
+
+.nav .nav-link {
+  color: inherit !important;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -87,5 +95,43 @@
 
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 576px) {
+  #heromobile {
+    display: block !important;
+  }
+
+  #herodesktop {
+    display: none !important;
+  }
+
+  .texta {
+    font-size: 16px !important;
+  }
+
+  .textp {
+    font-size: 14px !important;
+  }
+
+  .title1 {
+    font-size: 46px !important;
+  }
+
+  .title2 {
+    font-size: 32px !important;
+  }
+
+  .titlea {
+    font-size: 24px !important;
+  }
+  
+  .textr {
+    font-size: 24px !important;
+  }
+
+  .icon1 {
+    font-size: 50px !important;
   }
 }

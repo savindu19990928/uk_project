@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -15,22 +15,28 @@ function ProductCard({ imageUrl, productName, productDes, price }) {
                 </div>
             </div>
             <div className="d-flex mb-1">
-                <h3 className="h6 mb-0 formstyle">{productName}</h3>
+                <h3 className="h6 mb-0 texta">{productName}</h3>
             </div>
             <div className="d-flex mb-1">
                 <p className="mb-0 textp">{productDes}</p>
             </div>
             <div className="d-flex align-items-center mb-4">
-                <span className="me-2 formstyle">${price}</span>
+                <span className="me-2 texta">${price}</span>
             </div>
-            <div className="d-flex mb-2">
-                <button className="btn btn-primary w-100 formstyle">Reserve your spot</button>
+            <div className="d-flex justify-content-center mb-2">
+                <button className="btn btn-primary w-100 texta">Reserve your spot</button>
             </div>
         </div>
     );
 }
 
 function Catalog() {
+    const [collapsed, setCollapsed] = useState(true);
+
+    const toggleCollapse = () => {
+        setCollapsed(!collapsed);
+    };
+
     return (
         <div className="container pt-5 mt-5 mt-lg-4 mt-xl-5">
             <div className="ignore-dark-mode rounded-1 overflow-hidden mb-5" style={{ backgroundColor: '#f6f9fc' }}>
@@ -48,33 +54,49 @@ function Catalog() {
                 <div className="d-flex align-items-start justify-content-between mb-4 mt-5">
                     <div className="me-3">
                         <div className="nav d-md-none">
-                            <a className="nav-link dropdown-toggle fs-sm p-0 mb-2" href="#activeFilters" data-bs-toggle="collapse">
+                            <button
+                                className="nav-link dropdown-toggle fs-sm p-0 mb-2 textcr"
+                                onClick={toggleCollapse}
+                            >
                                 Active filters
-                            </a>
+                            </button>
                         </div>
-                        <div className="collapse d-md-block" id="activeFilters">
+                        <div className={`collapse d-md-block ${collapsed ? '' : 'show'}`} id="activeFilters">
                             <div className="pt-2 pt-md-0">
-                                <a className="d-inline-block border rounded-pill fs-xs fw-medium text-body text-decoration-none py-1 px-2 me-2 mb-2" href="#">
-                                    <span className="d-inline-flex align-items-center text-nowrap px-1 textr">London airport<i className="ai-circle-x fs-base ms-1"></i></span>
-                                </a>
-                                <a className="d-inline-block border rounded-pill fs-xs fw-medium text-body text-decoration-none py-1 px-2 me-2 mb-2" href="#">
-                                    <span className="d-inline-flex align-items-center text-nowrap px-1 textr">$10 - $50<i className="ai-circle-x fs-base ms-1"></i></span>
-                                </a>
-                                <button className="btn btn-sm btn-secondary rounded-pill fw-medium py-1 px-2" type="button">
-                                    <span className="px-1 textr">Remove all filters</span>
+                                <button
+                                    className="d-inline-block border rounded-pill fs-xs fw-medium text-body text-decoration-none py-1 px-2 me-2 mb-2"
+                                >
+                                    <span className="d-inline-flex align-items-center text-nowrap px-1 textcr">
+                                        London airport
+                                        <i className="ai-circle-x fs-base ms-1"></i>
+                                    </span>
+                                </button>
+                                <button
+                                    className="d-inline-block border rounded-pill fs-xs fw-medium text-body text-decoration-none py-1 px-2 me-2 mb-2"
+                                >
+                                    <span className="d-inline-flex align-items-center text-nowrap px-1 textcr">
+                                        $10 - $50
+                                        <i className="ai-circle-x fs-base ms-1"></i>
+                                    </span>
+                                </button>
+                                <button
+                                    className="btn btn-sm btn-secondary rounded-pill fw-medium py-1 px-2"
+                                    type="button"
+                                >
+                                    <span className="px-1 textcr">Remove all filters</span>
                                 </button>
                             </div>
                         </div>
                     </div>
                     <div className="d-flex align-items-center flex-shrink-0 mb-2">
-                        <span className="text-muted text-nowrap fs-sm textr">Sort by:</span>
-                        <select className="form-select form-select-flush py-0 textr">
-                            <option value="popular textr">Most popular</option>
-                            <option value="low-high textr">Low-High price</option>
-                            <option value="high-low textr">High-Low price</option>
-                            <option value="rating textr">Average rating</option>
-                            <option value="az textr">A-Z order</option>
-                            <option value="za textr">Z-A order</option>
+                        <span className="text-muted text-nowrap fs-sm textcr">Sort by:</span>
+                        <select className="form-select form-select-flush py-0 textcr">
+                            <option value="popular textcr">Most popular</option>
+                            <option value="low-high textcr">Low-High price</option>
+                            <option value="high-low textcr">High-Low price</option>
+                            <option value="rating textcr">Average rating</option>
+                            <option value="az textcr">A-Z order</option>
+                            <option value="za textcr">Z-A order</option>
                         </select>
                     </div>
                 </div>
@@ -99,8 +121,8 @@ function Catalog() {
                     <div className="row gy-3 align-items-center pt-3 pt-sm-4 mt-md-2">
                         <div className="col col-md-4 col-6 order-md-1 order-1">
                             <div className="d-flex align-items-center">
-                                <span className="text-muted fs-sm textr">Show</span>
-                                <select className="form-select form-select-flush w-auto textr">
+                                <span className="text-muted fs-sm textcr">Show</span>
+                                <select className="form-select form-select-flush w-auto textcr">
                                     <option value="12">12</option>
                                     <option value="18">18</option>
                                     <option value="24">24</option>
@@ -110,7 +132,7 @@ function Catalog() {
                         </div>
                         <div className="col col-md-4 col-6 order-md-3 order-2">
                             <nav aria-label="Page navigation">
-                                <ul className="pagination pagination-sm justify-content-end textr">
+                                <ul className="pagination pagination-sm justify-content-end textcr">
                                     <li className="page-item active" aria-current="page">
                                         <span className="page-link">1<span className="visually-hidden">(current)</span></span>
                                     </li>
@@ -121,7 +143,7 @@ function Catalog() {
                             </nav>
                         </div>
                         <div className="col col-md-4 col-12 order-md-2 order-3">
-                            {/* <p className="text-muted fs-sm mb-0 mt-2 mt-md-0 textr">Showing 1-12 of 48 results</p> */}
+                            {/* <p className="text-muted fs-sm mb-0 mt-2 mt-md-0 textcr">Showing 1-12 of 48 results</p> */}
                         </div>
                     </div>
                 </div>

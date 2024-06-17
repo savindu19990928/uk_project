@@ -7,7 +7,7 @@ const Footer = () => {
         <footer className="footer py-5">
             <div className="container pt-lg-3 mt-xl-3">
                 <div className="border-bottom text-center pb-4">
-                    <ul className="nav justify-content-center py-1 pb-sm-2 formstyle">
+                    <ul className="nav justify-content-center py-1 pb-sm-2 texta">
                         <li className="nav-item"><a className="nav-link py-2 px-3 mx-1" to="/tt">Terms of use</a></li>
                         <li className="nav-item"><a className="nav-link py-2 px-3 mx-1" to="/pp">Privacy policy</a></li>
                         <li className="nav-item"><a className="nav-link py-2 px-3 mx-1" to="/reviews">Reviews</a></li>

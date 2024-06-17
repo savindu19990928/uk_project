@@ -26,11 +26,17 @@ function App() {
     };
 
     // Function to create and append script elements
-    const createScript = (src) => {
+    const createScript = (src, integrity, crossorigin) => {
       const script = document.createElement("script");
       script.src = src;
+      if (integrity) {
+        script.integrity = integrity;
+      }
+      if (crossorigin) {
+        script.crossorigin = crossorigin;
+      }
       document.body.appendChild(script);
-      scripts.push(script); // Track the script element
+      scripts.push(script);
     };
 
     // Creating and appending link elements
@@ -62,6 +68,7 @@ function App() {
     createScript("./assets/vendor/aos/dist/aos.js");
     createScript("./assets/vendor/leaflet/dist/leaflet.js");
     createScript("./assets/vendor/cleave.js/dist/cleave.min.js");
+    createScript("https://code.jquery.com/jquery-3.7.1.min.js", "sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=", "anonymous");
 
     // Cleanup function
     return () => {
