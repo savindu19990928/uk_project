@@ -26,41 +26,73 @@
 }
 
 .step-icon {
-  width: 50px;
-  height: 50px;
-  margin-bottom: 10px;
+  width: 60px;
+  height: 60px;
   background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .contact-icon {
-  background-image: url('../public/logo512.png'); /* replace with actual icon path */
+  background-image: url('../public/assets/img/checkout/contact.png');
+}
+
+.contact2-icon {
+  background-image: url('../public/assets/img/checkout/contact2.png');
 }
 
 .flight-icon {
-  background-image: url('../public/logo512.png'); /* replace with actual icon path */
+  background-image: url('../public/assets/img/checkout/flight.png');
+}
+
+.flight2-icon {
+  background-image: url('../public/assets/img/checkout/flight2.png');
 }
 
 .payment-icon {
-  background-image: url('../public/logo512.png'); /* replace with actual icon path */
+  background-image: url('../public/assets/img/checkout/card.png');
+}
+
+.payment2-icon {
+  background-image: url('../public/assets/img/checkout/card2.png');
 }
 
 .finished-icon {
-  background-image: url('../public/logo512.png'); /* replace with actual icon path */
+  background-image: url('../public/assets/img/checkout/done.png');
+}
+
+.finished2-icon {
+  background-image: url('../public/assets/img/checkout/done2.png');
 }
 
 .arrow {
   width: 30px;
   height: 2px;
-  background-color: #121519;
   position: relative;
+}
+
+.arrow-color {
+  background-color: #121519;
+}
+
+.arrow-color::before {
+  border-right: 2px solid #121519;
+  border-top: 2px solid #121519;
+}
+
+.arrow-color-filled {
+  background-color: #0051c9;
+}
+
+.arrow-color-filled::before {
+  border-right: 2px solid #0051c9;
+  border-top: 2px solid #0051c9;
 }
 
 .arrow::before {
   content: '';
   width: 10px;
   height: 10px;
-  border-right: 2px solid #121519;
-  border-top: 2px solid #121519;
   position: absolute;
   right: -5px;
   top: -4px;
@@ -146,27 +178,6 @@
 
 .title2 {
   font-size: 48px !important;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
 }
 
 .fit-image {
@@ -287,5 +298,17 @@
 
   .icon1 {
     font-size: 50px !important;
+  }
+
+  .booking-steps-container {
+    background-color: #f6f9fc;
+  }
+
+  .step-icon {
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
   }
 }

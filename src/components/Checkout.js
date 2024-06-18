@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import InputMask from 'react-input-mask';
+import validator from 'validator';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Checkout() {
+    const [isActive1, setIsActive1] = useState(false);
+    const [isActive2, setIsActive2] = useState(false);
+    const [isActive3, setIsActive3] = useState(false);
+
     const [contactDetails, setContactDetails] = useState({
         title: '',
         firstName: '',
@@ -37,19 +43,35 @@ function Checkout() {
     const [showCarDetails, setShowCarDetails] = useState(false);
     const [showPaymentDetails, setShowPaymentDetails] = useState(false);
 
+    const [isCardNumberValid, setIsCardNumberValid] = useState(true);
+    const [isCvvValid, setIsCvvValid] = useState(true);
+    const [isExpiryDateValid, setIsExpiryDateValid] = useState(true);
+
     useEffect(() => {
         const allContactFilled = Object.values(contactDetails).every(value => value !== '');
         const allFlightFilled = Object.values(flightDetails).every(value => value !== '');
         const allCarFilled = Object.values(carDetails).every(value => value !== '');
+        const allPaymentFilled = Object.values(paymentDetails).every(value => value !== '');
         if (!allContactFilled) {
+            setIsActive1(false);
+            setIsActive2(false);
+            setIsActive3(false);
             setShowFlightDetails(false);
             setShowCarDetails(false);
+            setShowPaymentDetails(false);
         } else {
+            setIsActive1(true);
             setShowFlightDetails(true);
             if (allFlightFilled) {
+                setIsActive2(true);
                 setShowCarDetails(true);
                 if (allCarFilled) {
                     setShowPaymentDetails(true);
+                    if (!allPaymentFilled) {
+                        setIsActive3(false);
+                    } else {
+                        setIsActive3(true);
+                    }
                 }
             }
         }
@@ -58,24 +80,50 @@ function Checkout() {
     useEffect(() => {
         const allFlightFilled = Object.values(flightDetails).every(value => value !== '');
         const allCarFilled = Object.values(carDetails).every(value => value !== '');
+        const allPaymentFilled = Object.values(paymentDetails).every(value => value !== '');
         if (!allFlightFilled) {
             setShowCarDetails(false);
+            setShowPaymentDetails(false);
+            setIsActive2(false);
+            setIsActive3(false);
         } else {
             setShowCarDetails(true);
             if (allCarFilled) {
+                setIsActive2(true);
                 setShowPaymentDetails(true);
+                if (allPaymentFilled) {
+                    setIsActive3(true);
+                } else {
+                    setIsActive3(false);
+                }
+            } else {
+                setIsActive2(false);
+                setShowPaymentDetails(false);
             }
         }
     }, [flightDetails]);
 
     useEffect(() => {
+        const allFlightFilled = Object.values(flightDetails).every(value => value !== '');
         const allCarFilled = Object.values(carDetails).every(value => value !== '');
-        if (!allCarFilled) {
-            setShowPaymentDetails(false);
-        } else {
+        if (allCarFilled && allFlightFilled) {
+            setIsActive2(true);
             setShowPaymentDetails(true);
+        } else {
+            setIsActive2(false);
+            setIsActive3(false);
+            setShowPaymentDetails(false);
         }
     }, [carDetails]);
+
+    useEffect(() => {
+        const allPaymentFilled = Object.values(paymentDetails).every(value => value !== '');
+        if (!allPaymentFilled) {
+            setIsActive3(false);
+        } else {
+            setIsActive3(true);
+        }
+    }, [paymentDetails]);
 
     const handleContactChange = (e) => {
         const { id, value } = e.target;
@@ -95,6 +143,24 @@ function Checkout() {
     const handlePaymentChange = (e) => {
         const { id, value } = e.target;
         setPaymentDetails(prevState => ({ ...prevState, [id]: value }));
+
+        if (id === 'cardNumber') {
+            const plainNumber = value.replace(/\s+/g, '');
+            setIsCardNumberValid(validator.isCreditCard(plainNumber));
+        }
+        if (id === 'cvv') {
+            const plainCvv = value.replace(/\s+/g, '');
+            setIsCvvValid(/^\d{3,4}$/.test(plainCvv));
+        }
+        if (id === 'expiryDate') {
+            if (value.expiryDate) {
+                const [month, year] = value.split('/');
+                const isValidDate = validator.isInt(month, { min: 1, max: 12 }) && validator.isInt(year, { min: 0, max: 99 });
+                setIsExpiryDateValid(isValidDate && value.length === 5);
+            } else {
+                setIsExpiryDateValid(false);
+            }
+        }
     };
 
     const handleSubmit = (e) => {
@@ -107,27 +173,23 @@ function Checkout() {
             <form className="needs-validation container position-relative zindex-2 pt-5 pb-lg-5 pb-md-4 pb-2" noValidate onSubmit={handleSubmit}>
                 <div className="row">
                     <div className="col-lg-6">
-                        <div className="card mb-5 px-5">
+                        <div className="card mb-5">
                             <div className="booking-steps-container">
                                 <div className="booking-steps">
                                     <div className="step">
-                                        <div className="step-icon contact-icon"></div>
-                                        <div style={{color: '#0051c9'}} className="texta">Step 1</div>
+                                        <div className={isActive1 ? 'step-icon contact2-icon' : 'step-icon contact-icon'}></div>
                                     </div>
-                                    <div className="arrow"></div>
+                                    <div className={isActive1 ? 'arrow arrow-color-filled' : 'arrow arrow-color'}></div>
                                     <div className="step">
-                                        <div className="step-icon flight-icon"></div>
-                                        <div className="texta">Step 2</div>
+                                        <div className={isActive2 ? 'step-icon flight2-icon' : 'step-icon flight-icon'}></div>
                                     </div>
-                                    <div className="arrow"></div>
+                                    <div className={isActive2 ? 'arrow arrow-color-filled' : 'arrow arrow-color'}></div>
                                     <div className="step">
-                                        <div className="step-icon payment-icon"></div>
-                                        <div className="texta">Step 3</div>
+                                        <div className={isActive3 ? 'step-icon payment2-icon' : 'step-icon payment-icon'}></div>
                                     </div>
-                                    <div className="arrow"></div>
+                                    <div className={isActive3 ? 'arrow arrow-color-filled' : 'arrow arrow-color'}></div>
                                     <div className="step">
-                                        <div className="step-icon finished-icon"></div>
-                                        <div className="texta">Step 4</div>
+                                        <div className={(isActive1 && isActive2 && isActive3) ? 'step-icon finished2-icon' : 'step-icon finished-icon'}></div>
                                     </div>
                                 </div>
                             </div>
@@ -251,24 +313,79 @@ function Checkout() {
                                 </h3>
                                 <div className="row g-4 pb-4 pb-md-5 mb-3 mb-md-1" id="payment-details">
                                     <div className="col-sm-6">
-                                        <label className="form-label fs-base textpr" htmlFor="cardNumber">Card Number</label>
-                                        <input className="form-control form-control-lg textpr" type="text" placeholder="Your card number" required id="cardNumber" value={paymentDetails.cardNumber} onChange={handlePaymentChange} />
+                                        <label className="form-label fs-base textpr" htmlFor="cardNumber">Card number</label>
+                                        <InputMask
+                                            mask="9999 9999 9999 9999"
+                                            maskChar=""
+                                            value={paymentDetails.cardNumber}
+                                            onChange={handlePaymentChange}
+                                        >
+                                            {(inputProps) => (
+                                                <input
+                                                    {...inputProps}
+                                                    className={`form-control form-control-lg textpr ${isCardNumberValid ? '' : 'error'}`}
+                                                    type="text"
+                                                    placeholder="Your card number"
+                                                    required
+                                                    id="cardNumber"
+                                                />
+                                            )}
+                                        </InputMask>
                                     </div>
                                     <div className="col-sm-6">
-                                        <label className="form-label fs-base textpr" htmlFor="cardHolder">Card Holder Name</label>
-                                        <input className="form-control form-control-lg textpr" type="text" placeholder="Name on the card" required id="cardHolder" value={paymentDetails.cardHolder} onChange={handlePaymentChange} />
+                                        <label className="form-label fs-base textpr" htmlFor="cardHolder">Card holder name</label>
+                                        <input
+                                            className="form-control form-control-lg textpr"
+                                            type="text"
+                                            placeholder="Name on the card"
+                                            required
+                                            id="cardHolder"
+                                            value={paymentDetails.cardHolder}
+                                            onChange={handlePaymentChange}
+                                        />
                                     </div>
                                     <div className="col-sm-6">
-                                        <label className="form-label fs-base textpr" htmlFor="expiryDate">Expiry Date</label>
-                                        <input className="form-control form-control-lg textpr" type="text" placeholder="MM/YY" required id="expiryDate" value={paymentDetails.expiryDate} onChange={handlePaymentChange} />
+                                        <label className="form-label fs-base textpr" htmlFor="expiryDate">Expiry date</label>
+                                        <InputMask
+                                            mask="99/99"
+                                            maskChar=""
+                                            value={paymentDetails.expiryDate}
+                                            onChange={handlePaymentChange}
+                                        >
+                                            {(inputProps) => (
+                                                <input
+                                                    {...inputProps}
+                                                    className={`form-control form-control-lg textpr ${isExpiryDateValid ? '' : 'error'}`}
+                                                    type="text"
+                                                    placeholder="MM/YY"
+                                                    required
+                                                    id="expiryDate"
+                                                />
+                                            )}
+                                        </InputMask>
                                     </div>
                                     <div className="col-sm-6">
                                         <label className="form-label fs-base textpr" htmlFor="cvv">CVV</label>
-                                        <input className="form-control form-control-lg textpr" type="text" placeholder="CVV" required id="cvv" value={paymentDetails.cvv} onChange={handlePaymentChange} />
+                                        <InputMask
+                                            mask="9999"
+                                            maskChar=""
+                                            value={paymentDetails.cvv}
+                                            onChange={handlePaymentChange}
+                                        >
+                                            {(inputProps) => (
+                                                <input
+                                                    {...inputProps}
+                                                    className={`form-control form-control-lg textpr ${isCvvValid ? '' : 'error'}`}
+                                                    type="text"
+                                                    placeholder="CVV"
+                                                    required
+                                                    id="cvv"
+                                                />
+                                            )}
+                                        </InputMask>
                                     </div>
                                 </div>
                             </div>
-
                         )}
 
                         <div className="d-none d-lg-block pt-5 mt-n3">
