@@ -22,14 +22,14 @@ const Home = () => {
                                 <form className="card-body dark-mode">
                                     <h2 className="h3 card-title text-center pb-2 pb-xxl-3 titlea">Reserve your spot</h2>
                                     <div className="mb-3">
-                                        <label className="form-label fs-base textr" htmlFor="location">Location</label>
-                                        <select className="form-select form-select-lg textr" required id="location">
+                                        <label className="form-label fs-base textfr" htmlFor="location">Location</label>
+                                        <select className="form-select form-select-lg textfr" required id="location">
                                             <option style={{ color: '#121519' }} value="london airport" selected>London airport</option>
                                         </select>
                                     </div>
                                     <div className="mb-3">
-                                        <label className="form-label fs-base textr" htmlFor="terminal">Terminal</label>
-                                        <select className="form-select form-select-lg textr" required id="terminal">
+                                        <label className="form-label fs-base textfr" htmlFor="terminal">Terminal</label>
+                                        <select className="form-select form-select-lg textfr" required id="terminal">
                                             <option style={{ color: '#121519' }} value="any">Any terminal</option>
                                             <option style={{ color: '#121519' }} value="terminal 1">Terminal 1</option>
                                             <option style={{ color: '#121519' }} value="terminal 2">Terminal 2</option>
@@ -38,10 +38,10 @@ const Home = () => {
                                         </select>
                                     </div>
                                     <div className="mb-3">
-                                        <label className="form-label textr">Parking from</label>
-                                        <div className="position-relative textr">
+                                        <label className="form-label textfr">Parking from</label>
+                                        <div className="position-relative textfr">
                                             <input
-                                                className="form-control form-control-lg date-picker pe-5 textr"
+                                                className="form-control form-control-lg date-picker pe-5 textfr"
                                                 type="text"
                                                 placeholder="Choose date/time"
                                                 data-datepicker-options='{"enableTime": true, "altInput": true, "altFormat": "F j, Y H:i", "dateFormat": "Y-m-d H:i"}'
@@ -50,10 +50,10 @@ const Home = () => {
                                         </div>
                                     </div>
                                     <div className="mb-3">
-                                        <label className="form-label textr">Parking to</label>
-                                        <div className="position-relative textr">
+                                        <label className="form-label textfr">Parking to</label>
+                                        <div className="position-relative textfr">
                                             <input
-                                                className="form-control form-control-lg date-picker pe-5 textr"
+                                                className="form-control form-control-lg date-picker pe-5 textfr"
                                                 type="text"
                                                 placeholder="Choose date/time"
                                                 data-datepicker-options='{"enableTime": true, "altInput": true, "altFormat": "F j, Y H:i", "dateFormat": "Y-m-d H:i"}'
@@ -62,8 +62,8 @@ const Home = () => {
                                         </div>
                                     </div>
                                     <div className="mb-3">
-                                        <label className="form-label fs-base textr" htmlFor="promo">Promo code</label>
-                                        <input className="form-control form-control-lg textr" type="text" placeholder="Enter your promo code" required id="promo" />
+                                        <label className="form-label fs-base textfr" htmlFor="promo">Promo code</label>
+                                        <input className="form-control form-control-lg textfr" type="text" placeholder="Enter your promo code" required id="promo" />
                                     </div>
                                     <div className="d-flex flex-column flex-sm-row flex-lg-column flex-xxl-row align-items-center justify-content-center justify-content-lg-start pt-3 pt-xxl-4">
                                         <button className="btn btn-light w-100 w-sm-auto w-lg-100 w-xxl-auto mb-2 mb-sm-0 mb-lg-2 mb-xxl-0 me-sm-3 me-lg-0 me-xxl-3 text-primary texta" type="submit">Book space now</button>

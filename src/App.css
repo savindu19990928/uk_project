@@ -200,6 +200,11 @@
   font-weight: 400 !important;
 }
 
+.textfr {
+  font-family: "Rowdies", Helvetica !important;
+  font-weight: 400 !important;
+}
+
 .textpr {
   font-family: "Rowdies", Helvetica !important;
   font-weight: 400 !important;
@@ -290,6 +295,10 @@
 
   .textr {
     font-size: 24px !important;
+  }
+
+  .textfr {
+    font-size: 14px !important;
   }
 
   .textpr {
