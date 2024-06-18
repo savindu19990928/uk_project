@@ -1,12 +1,13 @@
 "use client";
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavbarC from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './components/Home';
 import Catalog from './components/Catalog';
+import Checkout from './components/Checkout';
 
 function App() {
   useEffect(() => {
@@ -77,19 +78,24 @@ function App() {
     };
   }, []);
 
+  const useCurrentPath = () => {
+    const location = useLocation();
+    return location.pathname;
+  };
+
+  const currentPath = useCurrentPath();
+  const noFooterRoutes = ['/about'];
+
   return (
-    <Router>
-      <div>
-        <NavbarC />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/services" element={<Catalog />} />
-          <Route path="/about" element={<Home />} />
-          <Route path="/contact" element={<Home />} />
-        </Routes>
-        <Footer />
-      </div>
-    </Router>
+    <div>
+      <NavbarC />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/services" element={<Catalog />} />
+        <Route path="/about" element={<Checkout />} />
+      </Routes>
+      {!noFooterRoutes.includes(currentPath) && <Footer />}
+    </div>
   );
 }
 

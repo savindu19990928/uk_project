@@ -17,7 +17,7 @@ const NavbarC = () => {
 
     return (
         <header>
-            <Navbar bg="light" expand="lg" fixed="top" className="navbar navbar-expand-lg bg-light fixed-top">
+            <Navbar expand="lg" fixed="top" className="navbar navbar-expand-lg fixed-top">
                 <Container>
                     <Navbar.Brand as={Link} to="/" className="text-primary">
                         <span className="text-primary flex-shrink-0 me-2">

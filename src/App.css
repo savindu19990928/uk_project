@@ -1,3 +1,10 @@
+.pricing-fixed {
+  position: sticky;
+  top: 70px;
+  height: calc(100vh - 70px);
+  overflow-y: auto;
+}
+
 .chat-button-container {
   position: relative;
   display: inline-block;

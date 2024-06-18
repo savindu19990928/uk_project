@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -8,10 +9,10 @@ const Footer = () => {
             <div className="container pt-lg-3 mt-xl-3">
                 <div className="border-bottom text-center pb-4">
                     <ul className="nav justify-content-center py-1 pb-sm-2 texta">
-                        <li className="nav-item"><a className="nav-link py-2 px-3 mx-1" to="/tt">Terms of use</a></li>
-                        <li className="nav-item"><a className="nav-link py-2 px-3 mx-1" to="/pp">Privacy policy</a></li>
-                        <li className="nav-item"><a className="nav-link py-2 px-3 mx-1" to="/reviews">Reviews</a></li>
-                        <li className="nav-item"><a className="nav-link py-2 px-3 mx-1" to="/blog">Blog</a></li>
+                        <li className="nav-item"><Link className="nav-link py-2 px-3 mx-1" to="/tt">Terms of use</Link></li>
+                        <li className="nav-item"><Link className="nav-link py-2 px-3 mx-1" to="/pp">Privacy policy</Link></li>
+                        <li className="nav-item"><Link className="nav-link py-2 px-3 mx-1" to="/reviews">Reviews</Link></li>
+                        <li className="nav-item"><Link className="nav-link py-2 px-3 mx-1" to="/blog">Blog</Link></li>
                     </ul>
                 </div>
                 <div className="d-sm-flex align-items-center justify-content-between pt-4 mt-2 mt-sm-0">
