@@ -1,3 +1,72 @@
+.booking-steps-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 20px;
+  border-width: 12px;
+  border-color: #0051c9;
+  border-radius: 32px;
+}
+
+.booking-steps {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 800px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.step-icon {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+  background-size: contain;
+}
+
+.contact-icon {
+  background-image: url('../public/logo512.png'); /* replace with actual icon path */
+}
+
+.flight-icon {
+  background-image: url('../public/logo512.png'); /* replace with actual icon path */
+}
+
+.payment-icon {
+  background-image: url('../public/logo512.png'); /* replace with actual icon path */
+}
+
+.finished-icon {
+  background-image: url('../public/logo512.png'); /* replace with actual icon path */
+}
+
+.arrow {
+  width: 30px;
+  height: 2px;
+  background-color: #121519;
+  position: relative;
+}
+
+.arrow::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #121519;
+  border-top: 2px solid #121519;
+  position: absolute;
+  right: -5px;
+  top: -4px;
+  transform: rotate(45deg);
+}
+
 .pricing-fixed {
   position: sticky;
   top: 70px;
@@ -110,7 +179,17 @@
   font-weight: 400 !important;
 }
 
+.textpa {
+  font-family: "Anton", Helvetica !important;
+  font-weight: 400 !important;
+}
+
 .textr {
+  font-family: "Rowdies", Helvetica !important;
+  font-weight: 400 !important;
+}
+
+.textpr {
   font-family: "Rowdies", Helvetica !important;
   font-weight: 400 !important;
 }
@@ -178,6 +257,10 @@
     font-size: 16px !important;
   }
 
+  .textpa {
+    font-size: 24px !important;
+  }
+
   .textp {
     font-size: 14px !important;
   }
@@ -196,6 +279,10 @@
 
   .textr {
     font-size: 24px !important;
+  }
+
+  .textpr {
+    font-size: 16px !important;
   }
 
   .icon1 {

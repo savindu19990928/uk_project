@@ -26,18 +26,56 @@ function Checkout() {
         regNumber: ''
     });
 
+    const [paymentDetails, setPaymentDetails] = useState({
+        cardNumber: '',
+        cardHolder: '',
+        expiryDate: '',
+        cvv: ''
+    });
+
     const [showFlightDetails, setShowFlightDetails] = useState(false);
     const [showCarDetails, setShowCarDetails] = useState(false);
+    const [showPaymentDetails, setShowPaymentDetails] = useState(false);
 
     useEffect(() => {
         const allContactFilled = Object.values(contactDetails).every(value => value !== '');
-        setShowFlightDetails(allContactFilled);
+        const allFlightFilled = Object.values(flightDetails).every(value => value !== '');
+        const allCarFilled = Object.values(carDetails).every(value => value !== '');
+        if (!allContactFilled) {
+            setShowFlightDetails(false);
+            setShowCarDetails(false);
+        } else {
+            setShowFlightDetails(true);
+            if (allFlightFilled) {
+                setShowCarDetails(true);
+                if (allCarFilled) {
+                    setShowPaymentDetails(true);
+                }
+            }
+        }
     }, [contactDetails]);
 
     useEffect(() => {
         const allFlightFilled = Object.values(flightDetails).every(value => value !== '');
-        setShowCarDetails(allFlightFilled);
+        const allCarFilled = Object.values(carDetails).every(value => value !== '');
+        if (!allFlightFilled) {
+            setShowCarDetails(false);
+        } else {
+            setShowCarDetails(true);
+            if (allCarFilled) {
+                setShowPaymentDetails(true);
+            }
+        }
     }, [flightDetails]);
+
+    useEffect(() => {
+        const allCarFilled = Object.values(carDetails).every(value => value !== '');
+        if (!allCarFilled) {
+            setShowPaymentDetails(false);
+        } else {
+            setShowPaymentDetails(true);
+        }
+    }, [carDetails]);
 
     const handleContactChange = (e) => {
         const { id, value } = e.target;
@@ -54,9 +92,14 @@ function Checkout() {
         setCarDetails(prevState => ({ ...prevState, [id]: value }));
     };
 
+    const handlePaymentChange = (e) => {
+        const { id, value } = e.target;
+        setPaymentDetails(prevState => ({ ...prevState, [id]: value }));
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Form submitted', { contactDetails, flightDetails, carDetails });
+        console.log('Form submitted', { contactDetails, flightDetails, carDetails, paymentDetails });
     };
     return (
         <div style={{ paddingTop: '70px' }}>
@@ -64,14 +107,39 @@ function Checkout() {
             <form className="needs-validation container position-relative zindex-2 pt-5 pb-lg-5 pb-md-4 pb-2" noValidate onSubmit={handleSubmit}>
                 <div className="row">
                     <div className="col-lg-6">
-                        <h1 className="h2 pb-3 texta">Checkout</h1>
+                        <div className="card mb-5 px-5">
+                            <div className="booking-steps-container">
+                                <div className="booking-steps">
+                                    <div className="step">
+                                        <div className="step-icon contact-icon"></div>
+                                        <div style={{color: '#0051c9'}} className="texta">Step 1</div>
+                                    </div>
+                                    <div className="arrow"></div>
+                                    <div className="step">
+                                        <div className="step-icon flight-icon"></div>
+                                        <div className="texta">Step 2</div>
+                                    </div>
+                                    <div className="arrow"></div>
+                                    <div className="step">
+                                        <div className="step-icon payment-icon"></div>
+                                        <div className="texta">Step 3</div>
+                                    </div>
+                                    <div className="arrow"></div>
+                                    <div className="step">
+                                        <div className="step-icon finished-icon"></div>
+                                        <div className="texta">Step 4</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h1 className="h2 pb-3 textpa">Checkout</h1>
                         <h3 className="fs-base fw-normal text-body text-uppercase pb-2 pb-sm-3">
-                            1.<span className="text-decoration-underline ms-1 textr">Contact details</span>
+                            1.<span className="text-decoration-underline ms-1 textpr">Contact details</span>
                         </h3>
                         <div className="row g-4 pb-4 pb-md-5 mb-3 mb-md-1" id="contact-details">
                             <div className="col-sm-6">
-                                <label className="form-label fs-base textr" htmlFor="title">Title</label>
-                                <select className="form-select form-select-lg textr" required id="title" value={contactDetails.title} onChange={handleContactChange}>
+                                <label className="form-label fs-base textpr" htmlFor="title">Title</label>
+                                <select className="form-select form-select-lg textpr" required id="title" value={contactDetails.title} onChange={handleContactChange}>
                                     <option value="" disabled>Select your title</option>
                                     <option value="mr">Mr.</option>
                                     <option value="miss">Miss</option>
@@ -79,28 +147,28 @@ function Checkout() {
                                 </select>
                             </div>
                             <div className="col-sm-6">
-                                <label className="form-label fs-base textr" htmlFor="firstName">First name</label>
-                                <input className="form-control form-control-lg textr" type="text" placeholder="Your first name" required id="firstName" value={contactDetails.firstName} onChange={handleContactChange} />
+                                <label className="form-label fs-base textpr" htmlFor="firstName">First name</label>
+                                <input className="form-control form-control-lg textpr" type="text" placeholder="Your first name" required id="firstName" value={contactDetails.firstName} onChange={handleContactChange} />
                             </div>
                             <div className="col-sm-6">
-                                <label className="form-label fs-base textr" htmlFor="lastName">Last name</label>
-                                <input className="form-control form-control-lg textr" type="text" placeholder="Your last name" required id="lastName" value={contactDetails.lastName} onChange={handleContactChange} />
+                                <label className="form-label fs-base textpr" htmlFor="lastName">Last name</label>
+                                <input className="form-control form-control-lg textpr" type="text" placeholder="Your last name" required id="lastName" value={contactDetails.lastName} onChange={handleContactChange} />
                             </div>
                             <div className="col-sm-6">
-                                <label className="form-label fs-base textr" htmlFor="email">Email</label>
+                                <label className="form-label fs-base textpr" htmlFor="email">Email</label>
                                 <div className="position-relative">
-                                    <input className="form-control form-control-lg ps-5 textr" type="email" placeholder="Email address" required id="email" value={contactDetails.email} onChange={handleContactChange} />
+                                    <input className="form-control form-control-lg ps-5 textpr" type="email" placeholder="Email address" required id="email" value={contactDetails.email} onChange={handleContactChange} />
                                 </div>
                             </div>
                             <div className="col-sm-6">
-                                <label className="form-label fs-base textr" htmlFor="phone">Phone</label>
+                                <label className="form-label fs-base textpr" htmlFor="phone">Phone</label>
                                 <div className="position-relative">
-                                    <input className="form-control form-control-lg ps-5 textr" type="tel" placeholder="+1 ___ ___ __" required id="phone" value={contactDetails.phone} onChange={handleContactChange} />
+                                    <input className="form-control form-control-lg ps-5 textpr" type="tel" placeholder="+1 ___ ___ __" required id="phone" value={contactDetails.phone} onChange={handleContactChange} />
                                 </div>
                             </div>
                             <div className="col-sm-6">
-                                <label className="form-label fs-base textr" htmlFor="numberOfPeople">Number of people</label>
-                                <select className="form-select form-select-lg textr" required id="numberOfPeople" value={contactDetails.numberOfPeople} onChange={handleContactChange}>
+                                <label className="form-label fs-base textpr" htmlFor="numberOfPeople">Number of people</label>
+                                <select className="form-select form-select-lg textpr" required id="numberOfPeople" value={contactDetails.numberOfPeople} onChange={handleContactChange}>
                                     <option value="" disabled>Select number of people</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -115,12 +183,12 @@ function Checkout() {
                         {showFlightDetails && (
                             <div>
                                 <h3 className="fs-base fw-normal text-body text-uppercase mt-n4 mt-md-n3 pt-5 pb-2 pb-sm-3">
-                                    2.<span className="text-decoration-underline ms-1 textr">Flight details</span>
+                                    2.<span className="text-decoration-underline ms-1 textpr">Flight details</span>
                                 </h3>
                                 <div className="row g-4 pb-4 pb-md-5 mb-3 mb-md-1" id="flight-details">
                                     <div className="col-sm-6">
-                                        <label className="form-label fs-base textr" htmlFor="departureTerminal">Departure terminal</label>
-                                        <select className="form-select form-select-lg textr" required id="departureTerminal" value={flightDetails.departureTerminal} onChange={handleFlightChange}>
+                                        <label className="form-label fs-base textpr" htmlFor="departureTerminal">Departure terminal</label>
+                                        <select className="form-select form-select-lg textpr" required id="departureTerminal" value={flightDetails.departureTerminal} onChange={handleFlightChange}>
                                             <option value="" disabled>Select departure terminal</option>
                                             <option value="1">Terminal 1</option>
                                             <option value="2">Terminal 2</option>
@@ -129,12 +197,12 @@ function Checkout() {
                                         </select>
                                     </div>
                                     <div className="col-sm-6">
-                                        <label className="form-label fs-base textr" htmlFor="departureFlightNo">Departure flight no.</label>
-                                        <input className="form-control form-control-lg textr" type="text" placeholder="Enter departure flight no." required id="departureFlightNo" value={flightDetails.departureFlightNo} onChange={handleFlightChange} />
+                                        <label className="form-label fs-base textpr" htmlFor="departureFlightNo">Departure flight no.</label>
+                                        <input className="form-control form-control-lg textpr" type="text" placeholder="Enter departure flight no." required id="departureFlightNo" value={flightDetails.departureFlightNo} onChange={handleFlightChange} />
                                     </div>
                                     <div className="col-sm-6">
-                                        <label className="form-label fs-base textr" htmlFor="arrivalTerminal">Arrival terminal</label>
-                                        <select className="form-select form-select-lg textr" required id="arrivalTerminal" value={flightDetails.arrivalTerminal} onChange={handleFlightChange}>
+                                        <label className="form-label fs-base textpr" htmlFor="arrivalTerminal">Arrival terminal</label>
+                                        <select className="form-select form-select-lg textpr" required id="arrivalTerminal" value={flightDetails.arrivalTerminal} onChange={handleFlightChange}>
                                             <option value="" disabled>Select arrival terminal</option>
                                             <option value="1">Terminal 1</option>
                                             <option value="2">Terminal 2</option>
@@ -143,8 +211,8 @@ function Checkout() {
                                         </select>
                                     </div>
                                     <div className="col-sm-6">
-                                        <label className="form-label fs-base textr" htmlFor="arrivalFlightNo">Arrival flight no.</label>
-                                        <input className="form-control form-control-lg textr" type="text" placeholder="Enter arrival flight no." required id="arrivalFlightNo" value={flightDetails.arrivalFlightNo} onChange={handleFlightChange} />
+                                        <label className="form-label fs-base textpr" htmlFor="arrivalFlightNo">Arrival flight no.</label>
+                                        <input className="form-control form-control-lg textpr" type="text" placeholder="Enter arrival flight no." required id="arrivalFlightNo" value={flightDetails.arrivalFlightNo} onChange={handleFlightChange} />
                                     </div>
                                 </div>
                             </div>
@@ -153,27 +221,54 @@ function Checkout() {
                         {showCarDetails && (
                             <div>
                                 <h3 className="fs-base fw-normal text-body text-uppercase mt-n4 mt-md-n3 pt-5 pb-2 pb-sm-3">
-                                    3.<span className="text-decoration-underline ms-1 textr">Car details</span>
+                                    3.<span className="text-decoration-underline ms-1 textpr">Car details</span>
                                 </h3>
                                 <div className="row g-4 pb-4 pb-md-5 mb-3 mb-md-1" id="car-details">
                                     <div className="col-sm-6">
-                                        <label className="form-label fs-base textr" htmlFor="make">Make</label>
-                                        <input className="form-control form-control-lg textr" type="text" placeholder="Company that made it" required id="make" value={carDetails.make} onChange={handleCarChange} />
+                                        <label className="form-label fs-base textpr" htmlFor="make">Make</label>
+                                        <input className="form-control form-control-lg textpr" type="text" placeholder="Company that made it" required id="make" value={carDetails.make} onChange={handleCarChange} />
                                     </div>
                                     <div className="col-sm-6">
-                                        <label className="form-label fs-base textr" htmlFor="model">Model</label>
-                                        <input className="form-control form-control-lg textr" type="text" placeholder="Model of the car" required id="model" value={carDetails.model} onChange={handleCarChange} />
+                                        <label className="form-label fs-base textpr" htmlFor="model">Model</label>
+                                        <input className="form-control form-control-lg textpr" type="text" placeholder="Model of the car" required id="model" value={carDetails.model} onChange={handleCarChange} />
                                     </div>
                                     <div className="col-sm-6">
-                                        <label className="form-label fs-base textr" htmlFor="color">Color</label>
-                                        <input className="form-control form-control-lg textr" type="text" placeholder="Color of the car" required id="color" value={carDetails.color} onChange={handleCarChange} />
+                                        <label className="form-label fs-base textpr" htmlFor="color">Color</label>
+                                        <input className="form-control form-control-lg textpr" type="text" placeholder="Color of the car" required id="color" value={carDetails.color} onChange={handleCarChange} />
                                     </div>
                                     <div className="col-sm-6">
-                                        <label className="form-label fs-base textr" htmlFor="regNumber">Reg. number</label>
-                                        <input className="form-control form-control-lg textr" type="text" placeholder="Registration number" required id="regNumber" value={carDetails.regNumber} onChange={handleCarChange} />
+                                        <label className="form-label fs-base textpr" htmlFor="regNumber">Reg. number</label>
+                                        <input className="form-control form-control-lg textpr" type="text" placeholder="Registration number" required id="regNumber" value={carDetails.regNumber} onChange={handleCarChange} />
                                     </div>
                                 </div>
                             </div>
+                        )}
+
+                        {showPaymentDetails && (
+                            <div>
+                                <h3 className="fs-base fw-normal text-body text-uppercase mt-n4 mt-md-n3 pt-5 pb-2 pb-sm-3">
+                                    4.<span className="text-decoration-underline ms-1 textpr">Payment details</span>
+                                </h3>
+                                <div className="row g-4 pb-4 pb-md-5 mb-3 mb-md-1" id="payment-details">
+                                    <div className="col-sm-6">
+                                        <label className="form-label fs-base textpr" htmlFor="cardNumber">Card Number</label>
+                                        <input className="form-control form-control-lg textpr" type="text" placeholder="Your card number" required id="cardNumber" value={paymentDetails.cardNumber} onChange={handlePaymentChange} />
+                                    </div>
+                                    <div className="col-sm-6">
+                                        <label className="form-label fs-base textpr" htmlFor="cardHolder">Card Holder Name</label>
+                                        <input className="form-control form-control-lg textpr" type="text" placeholder="Name on the card" required id="cardHolder" value={paymentDetails.cardHolder} onChange={handlePaymentChange} />
+                                    </div>
+                                    <div className="col-sm-6">
+                                        <label className="form-label fs-base textpr" htmlFor="expiryDate">Expiry Date</label>
+                                        <input className="form-control form-control-lg textpr" type="text" placeholder="MM/YY" required id="expiryDate" value={paymentDetails.expiryDate} onChange={handlePaymentChange} />
+                                    </div>
+                                    <div className="col-sm-6">
+                                        <label className="form-label fs-base textpr" htmlFor="cvv">CVV</label>
+                                        <input className="form-control form-control-lg textpr" type="text" placeholder="CVV" required id="cvv" value={paymentDetails.cvv} onChange={handlePaymentChange} />
+                                    </div>
+                                </div>
+                            </div>
+
                         )}
 
                         <div className="d-none d-lg-block pt-5 mt-n3">
@@ -181,13 +276,23 @@ function Checkout() {
                         </div>
                     </div>
                     <div className="col-lg-5 offset-lg-1 pt-1 pricing-fixed">
-                        <h2 className="pb-2 pt-md-2 my-4 mt-lg-5 texta">Summary</h2>
+                        <h2 className="pb-2 pt-md-2 my-4 mt-lg-5 textpa">Summary</h2>
                         <ul className="list-unstyled py-3 mb-0">
-                            <li className="d-flex justify-content-between mb-2 textr">Subtotal:<span className="fw-semibold ms-2 textr">$92.00</span></li>
-                            <li className="d-flex justify-content-between mb-2 textr">Taxes:<span className="fw-semibold ms-2 textr">$8.00</span></li>
-                            <li className="d-flex justify-content-between mb-2 textr">Shipping cost:<span className="fw-semibold ms-2 textr">$15.00</span></li>
+                            <li className="d-flex justify-content-between mb-2 textpr">Departure airport:<span className="fw-semibold ms-2 textpr">London city</span></li>
+                            <li className="d-flex justify-content-between mb-2 textpr">Departure date:<span className="fw-semibold ms-2 textpr">Wed, 19 Jun 2024</span></li>
+                            <li className="d-flex justify-content-between mb-2 textpr">Departure time:<span className="fw-semibold ms-2 textpr">12:00</span></li>
                         </ul>
-                        <div className="d-flex align-items-center justify-content-between border-top fs-xl pt-4 textr">Total:<span className="fs-3 fw-semibold text-dark ms-2 textr">$115.00</span></div>
+                        <ul className="list-unstyled py-3 mb-0">
+                            <li className="d-flex justify-content-between mb-2 textpr">Arrival airport:<span className="fw-semibold ms-2 textpr">Heathrow </span></li>
+                            <li className="d-flex justify-content-between mb-2 textpr">Arrival date:<span className="fw-semibold ms-2 textpr">Sun, 30 Jun 2024</span></li>
+                            <li className="d-flex justify-content-between mb-2 textpr">Arrival time:<span className="fw-semibold ms-2 textpr">12:00</span></li>
+                        </ul>
+                        <ul className="list-unstyled py-3 mb-0">
+                            <li className="d-flex justify-content-between mb-2 textpr">Subtotal:<span className="fw-semibold ms-2 textpr">$92.00</span></li>
+                            <li className="d-flex justify-content-between mb-2 textpr">Taxes:<span className="fw-semibold ms-2 textpr">$8.00</span></li>
+                            <li className="d-flex justify-content-between mb-2 textpr">Discount:<span className="fw-semibold ms-2 textpr">- $15.00</span></li>
+                        </ul>
+                        <div className="d-flex align-items-center justify-content-between border-top fs-xl pt-4 textpr">Total:<span className="fs-3 fw-semibold text-dark ms-2 textpr">$85.00</span></div>
                     </div>
                 </div>
                 <div className="d-lg-none pb-2 mt-2 mt-lg-0 pt-4 pt-lg-5">
