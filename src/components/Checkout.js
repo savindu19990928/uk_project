@@ -2,12 +2,18 @@ import React, { useState, useEffect } from 'react';
 import InputMask from 'react-input-mask';
 import validator from 'validator';
 import '../App.css';
+import { Collapse } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Checkout() {
     const [isActive1, setIsActive1] = useState(false);
     const [isActive2, setIsActive2] = useState(false);
     const [isActive3, setIsActive3] = useState(false);
+
+    const [currentStep, setCurrentStep] = useState(1);
+    const [showNext, setShowNext] = useState(false);
+
+    const [openSummery, setOpenSummery] = useState(false);
 
     const [contactDetails, setContactDetails] = useState({
         title: '',
@@ -47,101 +53,51 @@ function Checkout() {
     const [isCvvValid, setIsCvvValid] = useState(true);
     const [isExpiryDateValid, setIsExpiryDateValid] = useState(true);
 
-    useEffect(() => {
-        const allContactFilled = Object.values(contactDetails).every(value => value !== '');
-        const allFlightFilled = Object.values(flightDetails).every(value => value !== '');
-        const allCarFilled = Object.values(carDetails).every(value => value !== '');
-        const allPaymentFilled = Object.values(paymentDetails).every(value => value !== '');
-        if (!allContactFilled) {
-            setIsActive1(false);
-            setIsActive2(false);
-            setIsActive3(false);
-            setShowFlightDetails(false);
-            setShowCarDetails(false);
-            setShowPaymentDetails(false);
-        } else {
-            setIsActive1(true);
+    const handleNextStep = () => {
+        if (currentStep === 1 && Object.values(contactDetails).every(value => value !== '')) {
+            setCurrentStep(2);
             setShowFlightDetails(true);
-            if (allFlightFilled) {
-                setIsActive2(true);
-                setShowCarDetails(true);
-                if (allCarFilled) {
-                    setShowPaymentDetails(true);
-                    if (!allPaymentFilled) {
-                        setIsActive3(false);
-                    } else {
-                        setIsActive3(true);
-                    }
-                }
-            }
-        }
-    }, [contactDetails]);
-
-    useEffect(() => {
-        const allFlightFilled = Object.values(flightDetails).every(value => value !== '');
-        const allCarFilled = Object.values(carDetails).every(value => value !== '');
-        const allPaymentFilled = Object.values(paymentDetails).every(value => value !== '');
-        if (!allFlightFilled) {
-            setShowCarDetails(false);
-            setShowPaymentDetails(false);
-            setIsActive2(false);
-            setIsActive3(false);
-        } else {
+            setIsActive1(true);
+            setShowNext(false);
+        } else if (currentStep === 2 && Object.values(flightDetails).every(value => value !== '')) {
+            setCurrentStep(3);
             setShowCarDetails(true);
-            if (allCarFilled) {
-                setIsActive2(true);
-                setShowPaymentDetails(true);
-                if (allPaymentFilled) {
-                    setIsActive3(true);
-                } else {
-                    setIsActive3(false);
-                }
-            } else {
-                setIsActive2(false);
-                setShowPaymentDetails(false);
-            }
-        }
-    }, [flightDetails]);
-
-    useEffect(() => {
-        const allFlightFilled = Object.values(flightDetails).every(value => value !== '');
-        const allCarFilled = Object.values(carDetails).every(value => value !== '');
-        if (allCarFilled && allFlightFilled) {
-            setIsActive2(true);
+            setShowNext(false);
+        } else if (currentStep === 3 && Object.values(carDetails).every(value => value !== '')) {
+            setCurrentStep(4);
             setShowPaymentDetails(true);
-        } else {
-            setIsActive2(false);
-            setIsActive3(false);
-            setShowPaymentDetails(false);
+            setIsActive2(true);
+            setShowNext(false);
+        } else if (currentStep === 4 && Object.values(paymentDetails).every(value => value !== '')) {
+            //Submit form
+            console.log('Form submitted', { contactDetails, flightDetails, carDetails, paymentDetails });
         }
-    }, [carDetails]);
-
-    useEffect(() => {
-        const allPaymentFilled = Object.values(paymentDetails).every(value => value !== '');
-        if (!allPaymentFilled) {
-            setIsActive3(false);
-        } else {
-            setIsActive3(true);
-        }
-    }, [paymentDetails]);
+    };
 
     const handleContactChange = (e) => {
         const { id, value } = e.target;
+        const allFieldsFilled = Object.values({ ...contactDetails, [id]: value }).every(value => value !== '');
         setContactDetails(prevState => ({ ...prevState, [id]: value }));
+        setShowNext(allFieldsFilled);
     };
 
     const handleFlightChange = (e) => {
         const { id, value } = e.target;
+        const allFieldsFilled = Object.values({ ...flightDetails, [id]: value }).every(value => value !== '');
         setFlightDetails(prevState => ({ ...prevState, [id]: value }));
+        setShowNext(allFieldsFilled);
     };
 
     const handleCarChange = (e) => {
         const { id, value } = e.target;
+        const allFieldsFilled = Object.values({ ...carDetails, [id]: value }).every(value => value !== '');
         setCarDetails(prevState => ({ ...prevState, [id]: value }));
+        setShowNext(allFieldsFilled);
     };
 
     const handlePaymentChange = (e) => {
         const { id, value } = e.target;
+        const allFieldsFilled = Object.values({ ...paymentDetails, [id]: value }).every(value => value !== '');
         setPaymentDetails(prevState => ({ ...prevState, [id]: value }));
 
         if (id === 'cardNumber') {
@@ -161,18 +117,20 @@ function Checkout() {
                 setIsExpiryDateValid(false);
             }
         }
+        setIsActive3(allFieldsFilled);
+        setShowNext(allFieldsFilled);
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log('Form submitted', { contactDetails, flightDetails, carDetails, paymentDetails });
+    const handleOpenSummery = (e) => {
+        setOpenSummery(true);
     };
     return (
         <div style={{ paddingTop: '70px' }}>
             <div className="d-none d-lg-block bg-secondary position-fixed top-0 start-0 h-100" style={{ width: '52.5%' }}></div>
-            <form className="needs-validation container position-relative zindex-2 pt-5 pb-lg-5 pb-md-4 pb-2" noValidate onSubmit={handleSubmit}>
+            <form className="needs-validation container position-relative zindex-2 pt-5 pb-lg-5 pb-md-4 pb-2" noValidate>
                 <div className="row">
                     <div className="col-lg-6">
+                        <button className="btn btn-primary texta mb-4" type="button"><i className="ai-arrow-left text-white pe-2 fs-5" style={{ color: '#0051C9' }}></i>Edit your search</button>
                         <div className="card mb-5">
                             <div className="booking-steps-container">
                                 <div className="booking-steps">
@@ -194,11 +152,12 @@ function Checkout() {
                                 </div>
                             </div>
                         </div>
+
                         <h1 className="h2 pb-3 textpa">Checkout</h1>
                         <h3 className="fs-base fw-normal text-body text-uppercase pb-2 pb-sm-3">
                             1.<span className="text-decoration-underline ms-1 textpr">Contact details</span>
                         </h3>
-                        <div className="row g-4 pb-4 pb-md-5 mb-3 mb-md-1" id="contact-details">
+                        <div className="row g-4 pb-4 pb-md-5 mb-2 mb-md-0" id="contact-details">
                             <div className="col-sm-6">
                                 <label className="form-label fs-base textpr" htmlFor="title">Title</label>
                                 <select className="form-select form-select-lg textpr" required id="title" value={contactDetails.title} onChange={handleContactChange}>
@@ -241,8 +200,7 @@ function Checkout() {
                                 </select>
                             </div>
                         </div>
-
-                        {showFlightDetails && (
+                        <Collapse in={showFlightDetails}>
                             <div>
                                 <h3 className="fs-base fw-normal text-body text-uppercase mt-n4 mt-md-n3 pt-5 pb-2 pb-sm-3">
                                     2.<span className="text-decoration-underline ms-1 textpr">Flight details</span>
@@ -278,9 +236,8 @@ function Checkout() {
                                     </div>
                                 </div>
                             </div>
-                        )}
-
-                        {showCarDetails && (
+                        </Collapse>
+                        <Collapse in={showCarDetails}>
                             <div>
                                 <h3 className="fs-base fw-normal text-body text-uppercase mt-n4 mt-md-n3 pt-5 pb-2 pb-sm-3">
                                     3.<span className="text-decoration-underline ms-1 textpr">Car details</span>
@@ -304,9 +261,8 @@ function Checkout() {
                                     </div>
                                 </div>
                             </div>
-                        )}
-
-                        {showPaymentDetails && (
+                        </Collapse>
+                        <Collapse in={showPaymentDetails}>
                             <div>
                                 <h3 className="fs-base fw-normal text-body text-uppercase mt-n4 mt-md-n3 pt-5 pb-2 pb-sm-3">
                                     4.<span className="text-decoration-underline ms-1 textpr">Payment details</span>
@@ -386,34 +342,43 @@ function Checkout() {
                                     </div>
                                 </div>
                             </div>
+                        </Collapse>
+                        {showNext && (
+                            <div>
+                                <div className="d-none d-lg-block pt-4 mt-0">
+                                    <button className="btn btn-lg btn-primary texta" type="button" onClick={handleNextStep}>{(currentStep === 4) ? 'Reserve your spot' : 'Next'}</button>
+                                </div>
+                                <div className="d-lg-none pb-2 mb-5 my-lg-0 pt-4 pt-lg-5">
+                                    <button className="btn btn-lg btn-primary w-100 w-sm-auto texta" type="button" onClick={handleNextStep}>{(currentStep === 4) ? 'Reserve your spot' : 'Next'}</button>
+                                </div>
+                            </div>
                         )}
-
-                        <div className="d-none d-lg-block pt-5 mt-n3">
-                            <button className="btn btn-lg btn-primary texta" type="submit">Place an order</button>
+                    </div>
+                    <div className={openSummery ? 'col-lg-5 offset-lg-1 pricing-fixed text-white' : 'col-lg-5 offset-lg-1 text-white'}>
+                        <div className={openSummery ? 'px-5 pt-4 pt-md-1 pb-5 blue-card' : 'blue-card'}>
+                            {openSummery ? <h2 className="my-4 mt-lg-5 textpa">Summery</h2> : <div style={{ cursor: 'pointer', backgroundColor: '#0051c9', borderRadius: '32px' }} className="d-flex align-items-center justify-content-between my-4 my-lg-5 py-4 px-5 textpa fs-3 text-dark" onClick={handleOpenSummery}>Summery<span className="fs-3 ms-2 textpa text-dark">£85.00</span></div>}
+                            <Collapse in={openSummery}>
+                                <div>
+                                    <ul className="list-unstyled py-2 mb-0">
+                                        <li className="d-flex justify-content-between mb-2 textpr">Departure airport:<span className="ms-2 textpr">London city</span></li>
+                                        <li className="d-flex justify-content-between mb-2 textpr">Departure date:<span className="ms-2 textpr">19 Jun 2024</span></li>
+                                        <li className="d-flex justify-content-between mb-2 textpr">Departure time:<span className="ms-2 textpr">12:00</span></li>
+                                    </ul>
+                                    <ul className="list-unstyled py-2 mb-0">
+                                        <li className="d-flex justify-content-between mb-2 textpr">Arrival airport:<span className="ms-2 textpr">Heathrow</span></li>
+                                        <li className="d-flex justify-content-between mb-2 textpr">Arrival date:<span className="ms-2 textpr">30 Jun 2024</span></li>
+                                        <li className="d-flex justify-content-between mb-2 textpr">Arrival time:<span className="ms-2 textpr">12:00</span></li>
+                                    </ul>
+                                    <ul className="list-unstyled py-2 mb-0">
+                                        <li className="d-flex justify-content-between mb-2 textpr">Subtotal:<span className="ms-2 textpr">£92.00</span></li>
+                                        <li className="d-flex justify-content-between mb-2 textpr">Taxes:<span className="ms-2 textpr">£8.00</span></li>
+                                        <li className="d-flex justify-content-between mb-2 textpr">Discount:<span className="ms-2 textpr">- £15.00</span></li>
+                                    </ul>
+                                    <div className="d-flex align-items-center justify-content-between border-top fs-3 fw-semibold pt-4 textpr text-dark">Total:<span className="fs-3 fw-semibold text-dark ms-2 textpr">£85.00</span></div>
+                                </div>
+                            </Collapse>
                         </div>
                     </div>
-                    <div className="col-lg-5 offset-lg-1 pt-1 pricing-fixed">
-                        <h2 className="pb-2 pt-md-2 my-4 mt-lg-5 textpa">Summary</h2>
-                        <ul className="list-unstyled py-3 mb-0">
-                            <li className="d-flex justify-content-between mb-2 textpr">Departure airport:<span className="fw-semibold ms-2 textpr">London city</span></li>
-                            <li className="d-flex justify-content-between mb-2 textpr">Departure date:<span className="fw-semibold ms-2 textpr">Wed, 19 Jun 2024</span></li>
-                            <li className="d-flex justify-content-between mb-2 textpr">Departure time:<span className="fw-semibold ms-2 textpr">12:00</span></li>
-                        </ul>
-                        <ul className="list-unstyled py-3 mb-0">
-                            <li className="d-flex justify-content-between mb-2 textpr">Arrival airport:<span className="fw-semibold ms-2 textpr">Heathrow </span></li>
-                            <li className="d-flex justify-content-between mb-2 textpr">Arrival date:<span className="fw-semibold ms-2 textpr">Sun, 30 Jun 2024</span></li>
-                            <li className="d-flex justify-content-between mb-2 textpr">Arrival time:<span className="fw-semibold ms-2 textpr">12:00</span></li>
-                        </ul>
-                        <ul className="list-unstyled py-3 mb-0">
-                            <li className="d-flex justify-content-between mb-2 textpr">Subtotal:<span className="fw-semibold ms-2 textpr">$92.00</span></li>
-                            <li className="d-flex justify-content-between mb-2 textpr">Taxes:<span className="fw-semibold ms-2 textpr">$8.00</span></li>
-                            <li className="d-flex justify-content-between mb-2 textpr">Discount:<span className="fw-semibold ms-2 textpr">- $15.00</span></li>
-                        </ul>
-                        <div className="d-flex align-items-center justify-content-between border-top fs-xl pt-4 textpr">Total:<span className="fs-3 fw-semibold text-dark ms-2 textpr">$85.00</span></div>
-                    </div>
-                </div>
-                <div className="d-lg-none pb-2 mt-2 mt-lg-0 pt-4 pt-lg-5">
-                    <button className="btn btn-lg btn-primary w-100 w-sm-auto texta" type="submit">Place an order</button>
                 </div>
             </form>
         </div>

@@ -101,9 +101,14 @@
 
 .pricing-fixed {
   position: sticky;
-  top: 70px;
-  height: calc(100vh - 70px);
+  top: 120px;
+  height: calc(100vh - 120px);
   overflow-y: auto;
+}
+
+.blue-card {
+  background-color: #0051c9;
+  border-radius: 32px;
 }
 
 .chat-button-container {
@@ -319,5 +324,9 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+  }
+
+  .pricing-fixed {
+    height: auto;
   }
 }
