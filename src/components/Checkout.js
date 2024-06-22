@@ -12,8 +12,9 @@ function Checkout() {
 
     const [currentStep, setCurrentStep] = useState(1);
     const [showNext, setShowNext] = useState(false);
+    const isMobile = () => window.innerWidth <= 768;
 
-    const [openSummery, setOpenSummery] = useState(false);
+    const [openSummary, setOpenSummary] = useState(() => !isMobile());
 
     const [contactDetails, setContactDetails] = useState({
         title: '',
@@ -45,6 +46,7 @@ function Checkout() {
         cvv: ''
     });
 
+    const [showContactDetails, setShowContactDetails] = useState(true);
     const [showFlightDetails, setShowFlightDetails] = useState(false);
     const [showCarDetails, setShowCarDetails] = useState(false);
     const [showPaymentDetails, setShowPaymentDetails] = useState(false);
@@ -52,21 +54,28 @@ function Checkout() {
     const [isCardNumberValid, setIsCardNumberValid] = useState(true);
     const [isCvvValid, setIsCvvValid] = useState(true);
     const [isExpiryDateValid, setIsExpiryDateValid] = useState(true);
-
     const handleNextStep = () => {
+       
         if (currentStep === 1 && Object.values(contactDetails).every(value => value !== '')) {
             setCurrentStep(2);
+            setShowContactDetails(false);
             setShowFlightDetails(true);
             setIsActive1(true);
             setShowNext(false);
         } else if (currentStep === 2 && Object.values(flightDetails).every(value => value !== '')) {
             setCurrentStep(3);
+            setShowContactDetails(false);
+            setShowFlightDetails(false);
             setShowCarDetails(true);
+            setIsActive2(true);
             setShowNext(false);
         } else if (currentStep === 3 && Object.values(carDetails).every(value => value !== '')) {
             setCurrentStep(4);
+            setShowContactDetails(false);
+            setShowFlightDetails(false);
+            setShowCarDetails(false);
             setShowPaymentDetails(true);
-            setIsActive2(true);
+            setIsActive3(true);
             setShowNext(false);
         } else if (currentStep === 4 && Object.values(paymentDetails).every(value => value !== '')) {
             //Submit form
@@ -121,14 +130,17 @@ function Checkout() {
         setShowNext(allFieldsFilled);
     };
 
-    const handleOpenSummery = (e) => {
-        setOpenSummery(true);
+    const handleOpenSummary = (e) => {
+        setOpenSummary(true);
+    };
+    const handleOpenedSummary = (e) => {
+        setOpenSummary(false);
     };
     return (
         <div style={{ paddingTop: '70px' }}>
             <div className="d-none d-lg-block bg-secondary position-fixed top-0 start-0 h-100" style={{ width: '52.5%' }}></div>
             <form className="needs-validation container position-relative zindex-2 pt-5 pb-lg-5 pb-md-4 pb-2" noValidate>
-                <div className="row">
+                <div className="row checkoutwrapper">
                     <div className="col-lg-6">
                         <button className="btn btn-primary texta mb-4" type="button"><i className="ai-arrow-left text-white pe-2 fs-5" style={{ color: '#0051C9' }}></i>Edit your search</button>
                         <div className="card mb-5">
@@ -147,13 +159,15 @@ function Checkout() {
                                     </div>
                                     <div className={isActive3 ? 'arrow arrow-color-filled' : 'arrow arrow-color'}></div>
                                     <div className="step">
-                                        <div className={(isActive1 && isActive2 && isActive3) ? 'step-icon finished2-icon' : 'step-icon finished-icon'}></div>
+                                        <div className='step-icon finished-icon'></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <h1 className="h2 pb-3 textpa">Checkout</h1>
+                        <Collapse in={showContactDetails}>
+                            <div>
                         <h3 className="fs-base fw-normal text-body text-uppercase pb-2 pb-sm-3">
                             1.<span className="text-decoration-underline ms-1 textpr">Contact details</span>
                         </h3>
@@ -178,13 +192,13 @@ function Checkout() {
                             <div className="col-sm-6">
                                 <label className="form-label fs-base textpr" htmlFor="email">Email</label>
                                 <div className="position-relative">
-                                    <input className="form-control form-control-lg ps-5 textpr" type="email" placeholder="Email address" required id="email" value={contactDetails.email} onChange={handleContactChange} />
+                                    <input className="form-control form-control-lg  textpr" type="email" placeholder="Email address" required id="email" value={contactDetails.email} onChange={handleContactChange} />
                                 </div>
                             </div>
                             <div className="col-sm-6">
                                 <label className="form-label fs-base textpr" htmlFor="phone">Phone</label>
                                 <div className="position-relative">
-                                    <input className="form-control form-control-lg ps-5 textpr" type="tel" placeholder="+1 ___ ___ __" required id="phone" value={contactDetails.phone} onChange={handleContactChange} />
+                                    <input className="form-control form-control-lg  textpr" type="tel" placeholder="+1 ___ ___ __" required id="phone" value={contactDetails.phone} onChange={handleContactChange} />
                                 </div>
                             </div>
                             <div className="col-sm-6">
@@ -200,6 +214,8 @@ function Checkout() {
                                 </select>
                             </div>
                         </div>
+                        </div>
+                        </Collapse>
                         <Collapse in={showFlightDetails}>
                             <div>
                                 <h3 className="fs-base fw-normal text-body text-uppercase mt-n4 mt-md-n3 pt-5 pb-2 pb-sm-3">
@@ -354,10 +370,10 @@ function Checkout() {
                             </div>
                         )}
                     </div>
-                    <div className={openSummery ? 'col-lg-5 offset-lg-1 pricing-fixed text-white' : 'col-lg-5 offset-lg-1 text-white'}>
-                        <div className={openSummery ? 'px-5 pt-4 pt-md-1 pb-5 blue-card' : 'blue-card'}>
-                            {openSummery ? <h2 className="my-4 mt-lg-5 textpa">Summery</h2> : <div style={{ cursor: 'pointer', backgroundColor: '#0051c9', borderRadius: '32px' }} className="d-flex align-items-center justify-content-between my-4 my-lg-5 py-4 px-5 textpa fs-3 text-dark" onClick={handleOpenSummery}>Summery<span className="fs-3 ms-2 textpa text-dark">£85.00</span></div>}
-                            <Collapse in={openSummery}>
+                    <div className={openSummary ? 'col-lg-5 offset-lg-1 pricing-fixed text-white' : 'col-lg-5 offset-lg-1 text-white'}>
+                        <div className={openSummary ? 'px-5 pt-4 pt-md-1 pb-5 blue-card' : 'blue-card px-5'}>
+                            {openSummary ? <h2 className="mt-lg-5 textpa text-white" onClick={isMobile() ? handleOpenedSummary : null}>Summary {isMobile() ? <i class="ai-chevron-up text-white pe-2 fs-5 float-right"></i> : ''}</h2> : <div style={{ cursor: 'pointer', backgroundColor: '#0051c9', borderRadius: '32px' }} className="d-flex align-items-center justify-content-between my-4 my-lg-5 py-4 textpa fs-3 text-white" onClick={handleOpenSummary}>Summary<span className="fs-3 ms-2 textpa text-white">£85.00<i class="ai-chevron-down text-white pe-2 fs-5 float-right"></i></span></div>}
+                            <Collapse in={openSummary}>
                                 <div>
                                     <ul className="list-unstyled py-2 mb-0">
                                         <li className="d-flex justify-content-between mb-2 textpr">Departure airport:<span className="ms-2 textpr">London city</span></li>
@@ -374,7 +390,7 @@ function Checkout() {
                                         <li className="d-flex justify-content-between mb-2 textpr">Taxes:<span className="ms-2 textpr">£8.00</span></li>
                                         <li className="d-flex justify-content-between mb-2 textpr">Discount:<span className="ms-2 textpr">- £15.00</span></li>
                                     </ul>
-                                    <div className="d-flex align-items-center justify-content-between border-top fs-3 fw-semibold pt-4 textpr text-dark">Total:<span className="fs-3 fw-semibold text-dark ms-2 textpr">£85.00</span></div>
+                                    <div className="d-flex align-items-center justify-content-between border-top fs-3 fw-semibold pt-4 textpr text-white">Total:<span className="fs-3 fw-semibold text-white ms-2 textpr">£85.00</span></div>
                                 </div>
                             </Collapse>
                         </div>

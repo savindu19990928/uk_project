@@ -264,7 +264,12 @@
     transform: rotate(360deg);
   }
 }
-
+.float-right{
+  float: right;
+}
+.form-control-lg,.form-select-lg{
+  padding-left: 0.85rem;
+}
 @media (max-width: 576px) {
   #heromobile {
     display: block !important;
@@ -329,4 +334,14 @@
   .pricing-fixed {
     height: auto;
   }
+  .checkoutwrapper .col-lg-5{
+    order: 1;
+  }
+  .checkoutwrapper .col-lg-6{
+    order: 2;
+  }
+  .pricing-fixed {
+    position: unset;
+    padding-bottom: 20px;
+}
 }
